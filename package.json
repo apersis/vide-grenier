@@ -1,0 +1,17 @@
+{
+  "name": "grenier-en-ligne",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "watch": "sass --watch style:public/style",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "compile-css": "sass style/main.scss public/style/main.css",
+    "watch-css": "sass --watch style/main.scss:public/style/main.css"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "sass": "^1.75.0"
+  }
+}
