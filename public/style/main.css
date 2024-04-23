@@ -1187,6 +1187,7 @@ video {
   .articlelist .articleitem {
     min-height: 360px;
   }
+  
   .articlelist .articleitem img {
     width: 100%;
   }
@@ -1946,15 +1947,7 @@ footer .row .padding-def {
   display: flex;
   align-items: center;
 }
-/*deplace footer MODIF*/
-@media only screen and (min-width: 1365px) {
-  footer .row {
-    display: flex;
-    align-items: center;
-    margin-top: 600px;
-    background-color: #eceff0;
-  }
-}
+
 
 @media only screen and (max-width: 767px) {
   footer .row .padding-def {
@@ -2056,6 +2049,7 @@ footer .f-lang .btn-default {
 .login-wraper {
   position: relative;
 }
+
 /*taille formulaire MODIF*/
 .login-wraper .login-window {
   position: absolute;
@@ -2063,7 +2057,7 @@ footer .f-lang .btn-default {
   top: 50%;
   left: 50%;
   margin-left: -2px;
-  margin-top: -288px;
+  /*margin-top: -0px;*/
 }
 .login-wraper .login-window .l-head {
   background-color: #ffffff;
@@ -2075,11 +2069,13 @@ footer .f-lang .btn-default {
   border-top-left-radius: 3px;
   border-top-right-radius: 3px;
 }
+/*
 @media only screen and (max-width: 767px) {
   .login-wraper .login-window .l-head {
     background-color: #fbfdfe;
   }
 }
+*/
 .login-wraper .login-window .l-form {
   text-align: left;
   background-color: #fbfdfe;
@@ -2088,6 +2084,7 @@ footer .f-lang .btn-default {
   padding: 25px 70px 70px;
 }
 /*deplace le formulaire MODIF*/
+/*
 @media only screen and (min-width: 1365px) {
   .login-wraper .login-window .l-form {
     text-align: left;
@@ -2095,9 +2092,10 @@ footer .f-lang .btn-default {
     border-bottom-left-radius: 3px;
     border-bottom-right-radius: 3px;
     padding: 25px 70px 70px;
-    margin-top: 200px
+    /*margin-top: 200px/
   }
 }
+*/
 
 .login-wraper .login-window .l-form label {
   font-weight: 500;
@@ -2173,7 +2171,7 @@ footer .f-lang .btn-default {
 @media only screen and (min-width: 1365px) {
   .banner-text .b-text {
     color: #000000;
-    margin-top: 100px;
+    /*margin-top: 100px;*/
 
   }
 }
