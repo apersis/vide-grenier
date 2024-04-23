@@ -16,31 +16,42 @@ class Product extends \Core\Controller
      * Affiche la page d'ajout
      * @return void
      */
+
+    /*
+    *TLR : issue #19 -> image volumineuse
+    *Fonction qui vérifié la taille, l'extension et s'il y a un nom de l'image dans le champs 
+    *avant la création de la page du produit
+    */
     public function indexAction()
     {
-
         if(isset($_POST['submit'])) {
-
             try {
                 $f = $_POST;
+                if (!empty($_FILES['picture']['name'])) {
+                    if ($_FILES['picture']['size'] > 0 && $_FILES['picture']['size'] < 4000000) {
+                        $fileExtension = pathinfo($_FILES['picture']['name'], PATHINFO_EXTENSION);
+                        $allowedExtensions = ['jpeg', 'jpg', 'png'];
+                        if (in_array($fileExtension, $allowedExtensions)) {
+                            $f['user_id'] = $_SESSION['user']['id'];
+                            $id = Articles::save($f);
+                            $pictureName = Upload::uploadFile($_FILES['picture'], $id);
+                            if ($pictureName) {
+                                Articles::attachPicture($id, $pictureName);
+                                header('Location: /product/' . $id);
+                            } else {
+                                unlink($_FILES['picture']['tmp_name']);
+                            }
+                        }
+                    }
+                }
+            } catch (\Exception $e) {
 
-                // TODO: Validation
-
-                $f['user_id'] = $_SESSION['user']['id'];
-                $id = Articles::save($f);
-
-                $pictureName = Upload::uploadFile($_FILES['picture'], $id);
-
-                Articles::attachPicture($id, $pictureName);
-
-                header('Location: /product/' . $id);
-            } catch (\Exception $e){
-                    var_dump($e);
             }
         }
-
+    
         View::renderTemplate('Product/Add.html');
     }
+    
 
     /**
      * Affiche la page d'un produit
