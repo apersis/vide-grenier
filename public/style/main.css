@@ -2048,16 +2048,17 @@ footer .f-lang .btn-default {
 
 .login-wraper {
   position: relative;
+  margin-top: 50px;
 }
 
 /*taille formulaire MODIF*/
 .login-wraper .login-window {
-  position: absolute;
+  position: relative;
   width: 570px;
   top: 50%;
   left: 50%;
   margin-left: -2px;
-  /*margin-top: -0px;*/
+  
 }
 .login-wraper .login-window .l-head {
   background-color: #ffffff;
@@ -2147,7 +2148,7 @@ footer .f-lang .btn-default {
 }
 
 .banner-text {
-  position: absolute;
+  position: relative;
   top: 50%;
   left: 50%;
   margin-top: -50px;
