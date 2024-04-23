@@ -1946,6 +1946,16 @@ footer .row .padding-def {
   display: flex;
   align-items: center;
 }
+/*deplace footer MODIF*/
+@media only screen and (min-width: 1365px) {
+  footer .row {
+    display: flex;
+    align-items: center;
+    margin-top: 600px;
+    background-color: #eceff0;
+  }
+}
+
 @media only screen and (max-width: 767px) {
   footer .row .padding-def {
     flex-wrap: wrap;
@@ -2046,6 +2056,7 @@ footer .f-lang .btn-default {
 .login-wraper {
   position: relative;
 }
+/*taille formulaire MODIF*/
 .login-wraper .login-window {
   position: absolute;
   width: 570px;
@@ -2076,6 +2087,18 @@ footer .f-lang .btn-default {
   border-bottom-right-radius: 3px;
   padding: 25px 70px 70px;
 }
+/*deplace le formulaire MODIF*/
+@media only screen and (min-width: 1365px) {
+  .login-wraper .login-window .l-form {
+    text-align: left;
+    background-color: #fbfdfe;
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+    padding: 25px 70px 70px;
+    margin-top: 200px
+  }
+}
+
 .login-wraper .login-window .l-form label {
   font-weight: 500;
 }
@@ -2136,7 +2159,7 @@ footer .f-lang .btn-default {
 .banner-text .line {
   height: 1px;
   border-top: solid 1px #ea2c5a;
-  padding-bottom: 50px;
+  padding-bottom: 70px;
   width: 280px;
 }
 .banner-text .b-text {
@@ -2144,6 +2167,15 @@ footer .f-lang .btn-default {
   font-size: 80px;
   text-align: left;
   line-height: 80px;
+}
+
+/*deplace le texte MODIF*/
+@media only screen and (min-width: 1365px) {
+  .banner-text .b-text {
+    color: #000000;
+    margin-top: 100px;
+
+  }
 }
 .banner-text .b-text .color-b1 {
   color: #b7135d;
@@ -2196,7 +2228,13 @@ footer .f-lang .btn-default {
     padding: 20px 10px;
   }
   .login-wraper .login-window .l-form {
+    text-align: left;
+    /*
+    background-color: #fefbfe;
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
     padding: 25px 20px;
+    */
   }
 }
 /*
