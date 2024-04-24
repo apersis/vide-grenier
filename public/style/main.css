@@ -53,6 +53,14 @@ a:focus {
   margin-bottom: 25px;
 }
 
+.text-danger{
+  display: flex;
+  justify-content: center;
+  font-size: 18px;
+  margin-top: 25px;
+  color: red;
+}
+
 label {
   margin-bottom: 10px;
 }
@@ -2987,7 +2995,7 @@ footer .f-lang .btn-default {
   }
 }
 .edit-page .u-form .form-control {
-  padding: 6px 12px;
+  padding: 10px;
 }
 .edit-page .u-form .u-category {
   color: #2e2e2e !important;
