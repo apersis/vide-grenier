@@ -1187,6 +1187,7 @@ video {
   .articlelist .articleitem {
     min-height: 360px;
   }
+  
   .articlelist .articleitem img {
     width: 100%;
   }
@@ -1946,6 +1947,8 @@ footer .row .padding-def {
   display: flex;
   align-items: center;
 }
+
+
 @media only screen and (max-width: 767px) {
   footer .row .padding-def {
     flex-wrap: wrap;
@@ -2046,14 +2049,18 @@ footer .f-lang .btn-default {
 .login-wraper {
   position: relative;
 }
-.login-wraper .login-window {
-  position: absolute;
-  width: 570px;
-  top: 50%;
-  left: 50%;
-  margin-left: -2px;
-  margin-top: -288px;
+
+/*taille formulaire MODIF*/
+
+@media only screen and (min-width: 1360px) {
+  .login-wraper .login-window {
+    margin-left: 300px;
+    margin-right: 300px;
+  }
 }
+
+
+
 .login-wraper .login-window .l-head {
   background-color: #ffffff;
   padding: 40px;
@@ -2064,18 +2071,34 @@ footer .f-lang .btn-default {
   border-top-left-radius: 3px;
   border-top-right-radius: 3px;
 }
+/*
 @media only screen and (max-width: 767px) {
   .login-wraper .login-window .l-head {
     background-color: #fbfdfe;
   }
 }
+*/
 .login-wraper .login-window .l-form {
-  text-align: left;
+  text-align: center;
   background-color: #fbfdfe;
   border-bottom-left-radius: 3px;
   border-bottom-right-radius: 3px;
   padding: 25px 70px 70px;
 }
+/*deplace le formulaire MODIF*/
+/*
+@media only screen and (min-width: 1365px) {
+  .login-wraper .login-window .l-form {
+    text-align: left;
+    background-color: #fbfdfe;
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+    padding: 25px 70px 70px;
+    /*margin-top: 200px/
+  }
+}
+*/
+
 .login-wraper .login-window .l-form label {
   font-weight: 500;
 }
@@ -2126,24 +2149,26 @@ footer .f-lang .btn-default {
 }
 
 .banner-text {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  margin-top: -50px;
-  margin-left: -580px;
-  width: 550px;
+  display: flex;
+  justify-content: center;
 }
 .banner-text .line {
   height: 1px;
   border-top: solid 1px #ea2c5a;
-  padding-bottom: 50px;
+  padding-bottom: 70px;
   width: 280px;
 }
 .banner-text .b-text {
-  color: #ffffff;
+  color: #000000;
   font-size: 80px;
-  text-align: left;
-  line-height: 80px;
+  text-align: center;
+}
+
+/*deplace le texte MODIF*/
+@media only screen and (min-width: 767px) {
+  .banner-text .b-text {
+    text-align: center;
+  }
 }
 .banner-text .b-text .color-b1 {
   color: #b7135d;
@@ -2157,7 +2182,7 @@ footer .f-lang .btn-default {
 .banner-text .overtext {
   margin-top: 30px;
   color: #a1a1a1;
-  text-align: left;
+  text-align: center;
 }
 
 @media (min-width: 100px) and (max-width: 1365px) {
@@ -2168,19 +2193,18 @@ footer .f-lang .btn-default {
     margin-top: 0;
     margin-left: 0;
     width: auto;
+    text-align: center;
+
   }
   .banner-text .line {
     display: none;
   }
+
   .banner-text .b-text {
     color: #000000;
     font-size: 30px;
-    text-align: center;
-    line-height: 30px;
-    padding-top: 30px;
   }
   .banner-text .overtext {
-    margin: 15px 0;
     color: #a1a1a1;
     text-align: center;
   }
@@ -2196,7 +2220,13 @@ footer .f-lang .btn-default {
     padding: 20px 10px;
   }
   .login-wraper .login-window .l-form {
+    text-align: left;
+    /*
+    background-color: #fefbfe;
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
     padding: 25px 20px;
+    */
   }
 }
 /*

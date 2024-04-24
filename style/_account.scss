@@ -12,12 +12,11 @@
 .login-wraper{
   position: relative;
   .login-window {
-    position: absolute;
+    position: relative;
     width: 570px;
     top: 50%;
     left: 50%;
     margin-left: -2px;
-    margin-top: -288px;
     .l-head {
       background-color: $c-white;
 
@@ -91,16 +90,12 @@
 }
 
 .banner-text {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  margin-top: -50px;
-  margin-left: -580px;
-  width: 550px;
+  display: flex;
+  justify-content: center;
   .line {
     height: 1px;
     border-top: solid 1px $c-active;
-    padding-bottom: 50px;
+    padding-bottom: 70px;
     width: 280px;
   }
   .b-text {
@@ -138,13 +133,9 @@
     }
     .b-text {
       color: #000000;
-      font-size: 30px;
       text-align: center;
-      line-height: 30px;
-      padding-top: 30px;
     }
     .overtext {
-      margin: 15px 0;
       color: #a1a1a1;
       text-align: center;
     }
@@ -163,11 +154,13 @@
       }
       .l-form {
 
-        //text-align: left;
-        //background-color: #fbfdfe;
-        //border-bottom-left-radius: 3px;
-        //border-bottom-right-radius: 3px;
+        text-align: left;
+        /*
+        background-color: #fefbfe;
+        border-bottom-left-radius: 3px;
+        border-bottom-right-radius: 3px;
         padding: 25px 20px;
+        */
       }
     }
   }
