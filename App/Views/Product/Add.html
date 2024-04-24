@@ -46,10 +46,14 @@
                                 <div class="form-group">
                                     <label for="e3">Image</label>
                                     <input type="file" class="form-control" name="picture" id="e3" rows="3"/>
+                                    {% if error %}
+                                        <p class="text-danger">{{ error }}</p>
+                                    {% endif %}
                                 </div>
-                            </div>
+                            </div>        
                         </div>
                     </div>
+            
 
                     <div class="u-area mt-small">
                         <form action="#" method="post">
