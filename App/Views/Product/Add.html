@@ -3,6 +3,7 @@
 {% block title %}Produit{% endblock %}
 
 {% block body %}
+
 <div class="content-wrapper upload-page edit-page">
 
     <!-- channel -->
@@ -34,11 +35,16 @@
                                     <textarea class="form-control" name="description" id="e2" rows="3"></textarea>
                                 </div>
                             </div>
-
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <label for="e2">Code Postal</label>
+                                    <input type="text" id="codepostal" class="form-control cityAutoComplete" placeholder="29200">
+                                </div>
+                            </div>
                             <div class="col-lg-12">
                                 <div class="form-group">
                                     <label for="e2">Ville</label>
-                                    <input class="form-control cityAutoComplete" type="text" autocomplete="off"/>
+                                    <select name="fk_ville" id="villeInput" class="form-control"></select>
                                 </div>
                             </div>
 
@@ -69,21 +75,46 @@
 
 {% block javascript %}
     <script type="text/javascript">
-        $('.cityAutoComplete').autoComplete({
-            resolver: 'custom',
-            events: {
-                search: function (qry, callback) {
-                    // let's do a custom ajax call
-                    $.ajax(
-                        '/api/cities',
-                        {
-                            data: { 'query': qry}
-                        }
-                    ).done(function (res) {
-                        callback(res)
-                    });
+
+
+            // Sélection de l'élément <select>
+            var selectElement = document.getElementById('villeInput');
+
+            
+
+            // Fonction appellée lorsque l'utilisateur va taper des caractères dans le champ Code Postal
+            $('#codepostal').autoComplete({
+                resolver: 'custom',
+                events: {
+                    search: function (qry, callback) {
+                        // On fait un appel a l'api pour recevoir tous les noms et id de ville qui correspondent au code postal
+                        $.ajax(
+                            '/api/cities',
+                            {
+                                data: { 'query': qry,
+                                        'withcp' : 1}
+                            }
+                        ).done(function (res) {
+                            callback(res)
+                            // On clean la liste des villes a chaque nouveau resultat de l'appel
+                            while (selectElement.options.length > 0) {
+                                selectElement.remove(0);
+                            }
+                            //Pour chaque element du resultat de l'appel
+                            res.forEach(element => {
+                                // Création d'un nouvel élément <option>
+                                var newOption = document.createElement('option');
+
+                                // Attribution du nom de la ville dans le champ text
+                                newOption.text = element[1];
+                                // Attribution de l'id de la ville dans la valeur
+                                newOption.value = element[0];
+                                // On ajoute l'option au Select
+                                selectElement.add(newOption)
+                            });
+                        });
+                    }
                 }
-            }
-        });
+            });
     </script>
 {% endblock %}
