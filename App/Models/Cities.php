@@ -13,17 +13,22 @@ use App\Utility;
  */
 class Cities extends Model {
 
-    public static function search($str) {
+    public static function search($str, $bolCP) {
         $db = static::getDB();
 
-        $stmt = $db->prepare('SELECT ville_id FROM villes_france WHERE ville_nom_reel LIKE :query');
-
+        if ($bolCP == 1){ // Si le booléen CP est a true la recherche se fait par code postal
+            $stmt = $db->prepare('SELECT ville_id, ville_nom_reel FROM villes_france WHERE ville_code_postal LIKE :query');
+        }else{ // Sinon elle se fait par le nom de la ville
+            $stmt = $db->prepare('SELECT ville_id, ville_nom_reel FROM villes_france WHERE ville_nom_reel LIKE :query');
+        }
+        
         $query = $str . '%';
 
         $stmt->bindParam(':query', $query);
 
         $stmt->execute();
 
-        return $stmt->fetchAll(\PDO::FETCH_COLUMN, 0);
+        return $stmt->fetchAll(\PDO::FETCH_DEFAULT);
     }
+
 }
