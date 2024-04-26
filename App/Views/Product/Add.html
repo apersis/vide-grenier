@@ -16,7 +16,7 @@
     <!-- ///channel -->
 
     <div class="container mt-30">
-        <form action="" method="post" enctype="multipart/form-data">
+        <form id="productForm" action="" method="post" enctype="multipart/form-data">
             <div class="row">
                 <div class="col-lg-6">
                     <div class="u-form">
@@ -89,5 +89,24 @@
                 }
             }
         });
+
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('productForm').addEventListener('submit', function(event) {
+            event.preventDefault(); 
+
+            document.getElementById('e1')
+            if (formData.get('submit')) {
+                const nameInput = formData.get('name');
+                console.log("name1",nameInput)
+
+            if (nameInput.trim() === '') {
+                alert('Veuillez saisir un titre.');
+                console.log("name2",nameInput)
+                return; 
+            }
+            }
+        });
+    });
+        
     </script>
 {% endblock %}
