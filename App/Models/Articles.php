@@ -52,6 +52,7 @@ class Articles extends Model {
         $stmt = $db->prepare('
             SELECT * FROM articles
             INNER JOIN users ON articles.user_id = users.id
+            INNER JOIN villes_france ON articles.fk_ville = ville_id
             WHERE articles.id = ? 
             LIMIT 1');
 
@@ -126,7 +127,7 @@ class Articles extends Model {
     public static function save($data) {
         $db = static::getDB();
 
-        $stmt = $db->prepare('INSERT INTO articles(name, description, user_id, published_date) VALUES (:name, :description, :user_id,:published_date)');
+        $stmt = $db->prepare('INSERT INTO articles(name, description, user_id, published_date, fk_ville) VALUES (:name, :description, :user_id, :published_date, :fk_ville)');
 
         $published_date =  new DateTime();
         $published_date = $published_date->format('Y-m-d');
@@ -134,6 +135,7 @@ class Articles extends Model {
         $stmt->bindParam(':description', $data['description']);
         $stmt->bindParam(':published_date', $published_date);
         $stmt->bindParam(':user_id', $data['user_id']);
+        $stmt->bindParam(':fk_ville', $data['fk_ville']);
 
         $stmt->execute();
 
