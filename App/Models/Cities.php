@@ -31,4 +31,22 @@ class Cities extends Model {
         return $stmt->fetchAll(\PDO::FETCH_DEFAULT);
     }
 
+    public static function searchById($id) {
+        $db = static::getDB();
+
+        if ($id != null){ 
+            $stmt = $db->prepare('SELECT ville_id, ville_nom_reel, ville_code_postal FROM villes_france WHERE ville_id LIKE :query');
+        }else {
+            return false;
+        }
+        
+        $query = $id;
+
+        $stmt->bindParam(':query', $query);
+
+        $stmt->execute();
+
+        return $stmt->fetchAll(\PDO::FETCH_DEFAULT);
+    }
+
 }

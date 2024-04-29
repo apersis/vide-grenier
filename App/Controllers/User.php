@@ -113,9 +113,14 @@ class User extends \Core\Controller
             // to remained logged in on the login form.
             // https://github.com/andrewdyer/php-mvc-register-login/blob/development/www/app/Model/UserLogin.php#L86
 
+            $usercity = \App\Models\Cities::searchById($user['fk_ville']);
+
             $_SESSION['user'] = array(
                 'id' => $user['id'],
                 'username' => $user['username'],
+                'city_id' => $usercity[0]['ville_id'],
+                'city_name' => $usercity[0]['ville_nom_reel'],
+                'city_code' => $usercity[0]['ville_code_postal'],
             );
 
             return true;
