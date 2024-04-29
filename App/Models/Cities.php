@@ -22,7 +22,7 @@ class Cities extends Model {
             $stmt = $db->prepare('SELECT ville_id, ville_nom_reel FROM villes_france WHERE ville_nom_reel LIKE :query');
         }
         
-        $query = $str . '%';
+        $query = '%' . $str . '%';
 
         $stmt->bindParam(':query', $query);
 

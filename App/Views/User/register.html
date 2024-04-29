@@ -2,18 +2,13 @@
 
 {% block title %}Inscription{% endblock %}
 
+
+
+
 {% block body %}
-
-
-
 <div class="container-fluid bg-image">
     <div class="row">
         <div class="login-wraper">
-            <!--
-            <div class="hidden-xs">
-                <img src="images/login.jpg" alt="">
-            </div>
-            -->
             <div class="banner-text hidden-xs">
                 <div class="b-text">
                     Des <span class="color-active">centaines<br> </span> <span class="color-b1">d'articles vous
@@ -40,15 +35,13 @@
                                    placeholder="exemple@gmail.com">
                         </div>
                         <div class="form-group">
-                            <label for="codepostal">Code Postal</label>
-                            <input type="text" class="form-control" id="codepostal" name="codepostal"
-                                   placeholder="29200">
+                            <label for="exampleInputCP1">Code Postal</label>
+                            <input type="text" id="codepostalregister" class="form-control cityAutoComplete" placeholder="29200">
                         </div>
-                        <!--<div class="form-group">
-                            <label for="ville">Ville</label>
-                            <select class="form-control" id="ville" name="ville">
-                            </select>
-                        </div>-->
+                        <div class="form-group">
+                            <label for="exampleInputVille1">Ville</label>
+                            <select name="fk_ville" id="villeInput" class="form-control" style="padding: 10px;padding-left: 15px; line-height: normal;"></select>
+                        </div>
                         <div class="form-group">
                             <label for="exampleInputPassword1">Mot de passe</label>
                             <input type="password" class="form-control" id="exampleInputPassword1"
@@ -77,17 +70,44 @@
         </div>
     </div>
 </div>
+{% endblock body %}
+{% block javascript %}
+<script type="text/javascript">
+    // Sélection de l'élément <select>
+    var selectElement = document.getElementById('villeInput');
 
-<script>
-    document.getElementById('codepostal').addEventListener('blur', function() {
-        var param1 = 'riant';
-
-        var url = 'App/Controllers/Api.php?parametre1=' + encodeURIComponent(param1);
-
-        // Utilisation de jQuery pour effectuer une requête GET avec des paramètres
-        $.get(url, function(response) {
-            console.log('Réponse de PHP : ' + response);
-        });
+    // Fonction appellée lorsque l'utilisateur va taper des caractères dans le champ Code Postal
+    $('#codepostalregister').autoComplete({
+        resolver: 'custom',
+        events: {
+            search: function (qry, callback) {
+                // On fait un appel a l'api pour recevoir tous les noms et id de ville qui correspondent au code postal
+                $.ajax(
+                    '/api/cities',
+                    {
+                        data: { 'query': qry,
+                                'withcp' : 1}
+                    }
+                ).done(function (res) {
+                    callback(res)
+                    // On clean la liste des villes a chaque nouveau resultat de l'appel
+                    while (selectElement.options.length > 0) {
+                        selectElement.remove(0);
+                    }
+                    //Pour chaque element du resultat de l'appel
+                    res.forEach(element => {
+                        // Création d'un nouvel élément <option>
+                        var newOption = document.createElement('option');
+                        // Attribution du nom de la ville dans le champ text
+                        newOption.text = element[1];
+                        // Attribution de l'id de la ville dans la valeur
+                        newOption.value = element[0];
+                        // On ajoute l'option au Select
+                        selectElement.add(newOption)
+                    });
+                });
+            }
+        }
     });
 </script>
 {% endblock %}
