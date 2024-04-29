@@ -38,13 +38,16 @@
                             <div class="col-lg-12">
                                 <div class="form-group">
                                     <label for="e2">Code Postal</label>
-                                    <input type="text" id="codepostal" class="form-control cityAutoComplete" placeholder="29200">
+                                    <input type="text" id="codepostal" class="form-control cityAutoComplete" placeholder="29200" value="{{ user.city_code }}">
                                 </div>
                             </div>
                             <div class="col-lg-12">
                                 <div class="form-group">
                                     <label for="e2">Ville</label>
-                                    <select name="fk_ville" id="villeInput" class="form-control"></select>
+                                    <select name="fk_ville" id="villeInput" class="form-control">
+                                        <option value="{{ user.city_id }}">{{ user.city_name }}</option>
+                                    </select>
+                                    
                                 </div>
                             </div>
 
