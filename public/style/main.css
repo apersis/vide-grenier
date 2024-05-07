@@ -53,14 +53,6 @@ a:focus {
   margin-bottom: 25px;
 }
 
-.text-danger{
-  display: flex;
-  justify-content: center;
-  font-size: 18px;
-  margin-top: 25px;
-  color: red;
-}
-
 label {
   margin-bottom: 10px;
 }
@@ -1195,7 +1187,6 @@ video {
   .articlelist .articleitem {
     min-height: 360px;
   }
-  
   .articlelist .articleitem img {
     width: 100%;
   }
@@ -1955,8 +1946,6 @@ footer .row .padding-def {
   display: flex;
   align-items: center;
 }
-
-
 @media only screen and (max-width: 767px) {
   footer .row .padding-def {
     flex-wrap: wrap;
@@ -2057,18 +2046,13 @@ footer .f-lang .btn-default {
 .login-wraper {
   position: relative;
 }
-
-/*taille formulaire MODIF*/
-
-@media only screen and (min-width: 1360px) {
-  .login-wraper .login-window {
-    margin-left: 300px;
-    margin-right: 300px;
-  }
+.login-wraper .login-window {
+  position: relative;
+  width: 570px;
+  top: 50%;
+  left: 50%;
+  margin-left: -2px;
 }
-
-
-
 .login-wraper .login-window .l-head {
   background-color: #ffffff;
   padding: 40px;
@@ -2079,34 +2063,18 @@ footer .f-lang .btn-default {
   border-top-left-radius: 3px;
   border-top-right-radius: 3px;
 }
-/*
 @media only screen and (max-width: 767px) {
   .login-wraper .login-window .l-head {
     background-color: #fbfdfe;
   }
 }
-*/
 .login-wraper .login-window .l-form {
-  text-align: center;
+  text-align: left;
   background-color: #fbfdfe;
   border-bottom-left-radius: 3px;
   border-bottom-right-radius: 3px;
   padding: 25px 70px 70px;
 }
-/*deplace le formulaire MODIF*/
-/*
-@media only screen and (min-width: 1365px) {
-  .login-wraper .login-window .l-form {
-    text-align: left;
-    background-color: #fbfdfe;
-    border-bottom-left-radius: 3px;
-    border-bottom-right-radius: 3px;
-    padding: 25px 70px 70px;
-    /*margin-top: 200px/
-  }
-}
-*/
-
 .login-wraper .login-window .l-form label {
   font-weight: 500;
 }
@@ -2167,16 +2135,10 @@ footer .f-lang .btn-default {
   width: 280px;
 }
 .banner-text .b-text {
-  color: #000000;
+  color: #ffffff;
   font-size: 80px;
-  text-align: center;
-}
-
-/*deplace le texte MODIF*/
-@media only screen and (min-width: 767px) {
-  .banner-text .b-text {
-    text-align: center;
-  }
+  text-align: left;
+  line-height: 80px;
 }
 .banner-text .b-text .color-b1 {
   color: #b7135d;
@@ -2190,7 +2152,7 @@ footer .f-lang .btn-default {
 .banner-text .overtext {
   margin-top: 30px;
   color: #a1a1a1;
-  text-align: center;
+  text-align: left;
 }
 
 @media (min-width: 100px) and (max-width: 1365px) {
@@ -2201,16 +2163,13 @@ footer .f-lang .btn-default {
     margin-top: 0;
     margin-left: 0;
     width: auto;
-    text-align: center;
-
   }
   .banner-text .line {
     display: none;
   }
-
   .banner-text .b-text {
     color: #000000;
-    font-size: 30px;
+    text-align: center;
   }
   .banner-text .overtext {
     color: #a1a1a1;
@@ -2995,7 +2954,7 @@ footer .f-lang .btn-default {
   }
 }
 .edit-page .u-form .form-control {
-  padding: 10px;
+  padding: 6px 12px;
 }
 .edit-page .u-form .u-category {
   color: #2e2e2e !important;
