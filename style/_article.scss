@@ -103,6 +103,11 @@
 
   }
 
+  .info-content p {
+    white-space: pre-wrap; 
+    word-wrap: break-word;
+  }
+
   .content-wrapper {
     padding-top: 30px;
   }
