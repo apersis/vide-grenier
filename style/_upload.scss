@@ -138,6 +138,7 @@
       }
     }
   }
+
   .u-form {
     label {
       //margin-bottom: 10px;
@@ -151,6 +152,7 @@
     }
     .form-control {
       padding: 6px 12px;
+      background-color: #ffffff;
     }
     .u-category {
       color: #2e2e2e !important;
@@ -182,6 +184,12 @@
     text-align: center;
   }
 }
+
+.input-error {
+  border: 2px solid red; /* Ajoute une bordure rouge */
+  box-shadow: 0 0 5px red; /* Ajoute une ombre rouge */
+}
+
 
 @media only screen and (max-width: 767px) {
   .upload-page {

@@ -17,7 +17,7 @@
     <!-- ///channel -->
 
     <div class="container mt-30">
-        <form action="" method="post" enctype="multipart/form-data">
+        <form id="productForm" action="" method="post" enctype="multipart/form-data">
             <div class="row">
                 <div class="col-lg-6">
                     <div class="u-form">
@@ -25,14 +25,14 @@
                             <div class="col-lg-12">
                                 <div class="form-group">
                                     <label for="e1">Titre</label>
-                                    <input type="text" name="name" class="form-control" id="e1"
+                                    <input type="text" name="name" class="form-control" id="titre"
                                            placeholder="Jeu de cartes (rare)">
                                 </div>
                             </div>
                             <div class="col-lg-12">
                                 <div class="form-group">
                                     <label for="e2">Description</label>
-                                    <textarea class="form-control" name="description" id="e2" rows="3" style="resize: none"></textarea>
+                                    <textarea class="form-control" name="description" id="description" rows="3" style="resize: none"></textarea>
                                 </div>
                             </div>
                             <div class="col-lg-12">
@@ -54,7 +54,7 @@
                             <div class="col-lg-12">
                                 <div class="form-group">
                                     <label for="e3">Image</label>
-                                    <input type="file" class="form-control" name="picture" id="e3" rows="3"/>
+                                    <input type="file" class="form-control" name="picture" id="e4" rows="3"/>
                                     {% if error %}
                                         <p class="text-danger">{{ error }}</p>
                                     {% endif %}
@@ -85,9 +85,13 @@
 
 
             // Sélection de l'élément <select>
-            var selectElement = document.getElementById('villeInput');
+            const selectElement = document.getElementById('villeInput');
 
-            
+            const nameInput = document.getElementById('titre');
+            const descriptionInput = document.getElementById('description');
+            const codeInput = document.getElementById('codepostal');
+            const pictureInput = document.getElementById('picture');
+     
 
             // Fonction appellée lorsque l'utilisateur va taper des caractères dans le champ Code Postal
             $('#codepostal').autoComplete({
@@ -123,5 +127,61 @@
                     }
                 }
             });
+
+    document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('productForm').addEventListener('submit', function(event) {
+        event.preventDefault(); 
+
+
+        if (nameInput.value.trim() === '') {
+            nameInput.classList.add('input-error');
+            setTimeout(function() {
+                nameInput.classList.remove('input-error');
+            }, 200);
+            nameInput.focus();
+            return;
+        }
+
+        if (descriptionInput.value.trim() === '') {
+            descriptionInput.classList.add('input-error');
+            setTimeout(function() {
+                descriptionInput.classList.remove('input-error');
+            }, 200);
+            descriptionInput.focus();
+            return;
+        }
+
+        if (codeInput.value.trim() === '') {
+            codeInput.classList.add('input-error');
+            setTimeout(function() {
+                codeInput.classList.remove('input-error');
+            }, 200);
+            codeInput.focus();
+            return;
+        }
+
+        if (selectElement.value.trim() === '') {
+            selectElement.classList.add('input-error');
+            setTimeout(function() {
+                selectElement.classList.remove('input-error');
+            }, 200);
+            selectElement.focus();
+            return;
+        }
+
+        if (pictureInput.value.trim() === '') {
+            pictureInput.classList.add('input-error');
+            setTimeout(function() {
+                pictureInput.classList.remove('input-error');
+            }, 200);
+            pictureInput.focus();
+            return;
+        }
+
+        // Si tous les champs sont remplis, soumettre le formulaire
+        this.submit();
+    });
+});
+
     </script>
 {% endblock %}
