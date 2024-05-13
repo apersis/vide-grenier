@@ -13,10 +13,13 @@
   position: relative;
   .login-window {
     position: relative;
-    width: 570px;
+    width: auto;
     top: 50%;
-    left: 50%;
-    margin-left: -2px;
+    @media (min-width: 1300px) {
+      margin-left: 15%;
+      margin-right: 15%;
+
+    }
     .l-head {
       background-color: $c-white;
 
@@ -47,7 +50,6 @@
           padding-bottom: 12px;
         }
       }
-    }
   }
   .checkbox {
     font-weight: normal;
@@ -101,8 +103,10 @@
   .b-text {
     color: $c-white;
     font-size: $fs-xl;
-    text-align: left;
+    text-align: center;
     line-height: $fs-xl;
+    color: #000000;
+
     .color-b1 {
       color: #b7135d;
     }
@@ -112,6 +116,10 @@
     .color-b3 {
       color: #d71d52;
     }
+    @media only screen and (min-width: 767px) {
+      margin-top: 20px;
+    }
+
   }
   .overtext {
     margin-top: 30px;
@@ -170,3 +178,4 @@
 /*
 * Content Account END
 */
+}
