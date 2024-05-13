@@ -60,12 +60,13 @@ class Product extends \Core\Controller
     
         View::renderTemplate('Product/Add.html', ['error' => $error]);
     }
-    
 
-    /**
+
+    /*
+        /**
      * Affiche la page d'un produit
      * @return void
-     */
+    */
     public function showAction()
     {
         $id = $this->route_params['id'];
@@ -83,4 +84,5 @@ class Product extends \Core\Controller
             'suggestions' => $suggestions
         ]);
     }
+    
 }
