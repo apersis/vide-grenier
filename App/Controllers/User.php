@@ -113,6 +113,15 @@ class User extends \Core\Controller
             // to remained logged in on the login form.
             // https://github.com/andrewdyer/php-mvc-register-login/blob/development/www/app/Model/UserLogin.php#L86
 
+            file_put_contents('C:\Users\Pc\Documents\CubeVideGrenier\logs.txt', print_r($data, true), FILE_APPEND);
+
+            // Si le bouton "se souvenir de moi" est coché, créer un cookie
+            /*$remember = $data['#'] === "on";
+            if ($remember and ! self::createRememberCookie($user['id'])) {
+                //throw new Exception();
+            }*/
+
+
             $usercity = \App\Models\Cities::searchById($user['fk_ville']);
 
             $_SESSION['user'] = array(
@@ -131,6 +140,21 @@ class User extends \Core\Controller
         }
     }
 
+    public static function createRememberCookie($userID) {
+        $Db = Utility\Database::getInstance();
+        $check = $Db->select("user_cookies", ["user_id", "=", $userID]);
+        if ($check->count()) {
+            $hash = $check->first()->hash;
+        } else {
+            $hash = Utility\Hash::generateUnique();
+            if (!$Db->insert("user_cookies", ["user_id" => $userID, "hash" => $hash])) {
+                return false;
+            }
+        }
+        $cookie = Utility\Config::get("COOKIE_USER");
+        $expiry = Utility\Config::get("COOKIE_DEFAULT_EXPIRY");
+        return(Utility\Cookie::put($cookie, $hash, $expiry));
+    }
 
     /**
      * Logout: Delete cookie and session. Returns true if everything is okay,
