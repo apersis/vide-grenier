@@ -138,6 +138,11 @@
       }
     }
   }
+
+  .input-error {
+    border-color: red;
+  }
+
   .u-form {
     label {
       //margin-bottom: 10px;
@@ -150,7 +155,8 @@
       }
     }
     .form-control {
-      padding: 6px 12px;
+      padding: 10px;
+      background-color: #ffffff;
     }
     .u-category {
       color: #2e2e2e !important;
@@ -182,6 +188,7 @@
     text-align: center;
   }
 }
+
 
 @media only screen and (max-width: 767px) {
   .upload-page {

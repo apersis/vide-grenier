@@ -19,12 +19,13 @@ class User extends Model {
     public static function createUser($data) {
         $db = static::getDB();
 
-        $stmt = $db->prepare('INSERT INTO users(username, email, password, salt) VALUES (:username, :email, :password,:salt)');
+        $stmt = $db->prepare('INSERT INTO users(username, email, password, salt, fk_ville) VALUES (:username, :email, :password,:salt,:fk_ville)');
 
         $stmt->bindParam(':username', $data['username']);
         $stmt->bindParam(':email', $data['email']);
         $stmt->bindParam(':password', $data['password']);
         $stmt->bindParam(':salt', $data['salt']);
+        $stmt->bindParam(':fk_ville', $data['fk_ville']);
 
         $stmt->execute();
 

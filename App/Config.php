@@ -28,11 +28,13 @@ class Config
      */
     const DB_USER = 'webapplication';
 
+
     /**
      * Database password
      * @var string
      */
     const DB_PASSWORD = '653rag9T';
+
 
     /**
      * Show or hide error messages on screen

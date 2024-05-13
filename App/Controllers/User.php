@@ -80,11 +80,13 @@ class User extends \Core\Controller
             // hashing process.
             $salt = Hash::generateSalt(32);
 
+            // Appel a la fonction pour créer un utilisateur
             $userID = \App\Models\User::createUser([
                 "email" => $data['email'],
                 "username" => $data['username'],
-                "password" => Hash::generate($data['password'], $salt),
-                "salt" => $salt
+                "password" => Hash::generate($data['password'], $salt), // On genère un hash a partir du salt
+                "salt" => $salt,
+                "fk_ville" => $data['fk_ville']
             ]);
 
             return $userID;
@@ -111,9 +113,14 @@ class User extends \Core\Controller
             // to remained logged in on the login form.
             // https://github.com/andrewdyer/php-mvc-register-login/blob/development/www/app/Model/UserLogin.php#L86
 
+            $usercity = \App\Models\Cities::searchById($user['fk_ville']);
+
             $_SESSION['user'] = array(
                 'id' => $user['id'],
                 'username' => $user['username'],
+                'city_id' => $usercity[0]['ville_id'],
+                'city_name' => $usercity[0]['ville_nom_reel'],
+                'city_code' => $usercity[0]['ville_code_postal'],
             );
 
             return true;

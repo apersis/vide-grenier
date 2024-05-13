@@ -30,13 +30,13 @@ class Api extends \Core\Controller
 
     /**
      * Recherche dans la liste des villes
-     *
+     * Par query et si c'est une recherche par code postal ou par nom
+     * 
      * @throws Exception
      */
     public function CitiesAction(){
 
-        $cities = Cities::search($_GET['query']);
-
+        $cities = Cities::search($_GET['query'], $_GET['withcp']);
         header('Content-Type: application/json');
         echo json_encode($cities);
     }
