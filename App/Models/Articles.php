@@ -50,12 +50,11 @@ class Articles extends Model {
         $db = static::getDB();
 
         $stmt = $db->prepare('
-            SELECT * FROM articles
-            INNER JOIN users ON articles.user_id = users.id
-            INNER JOIN villes_france ON articles.fk_ville = ville_id
-            WHERE articles.id = ? 
-            LIMIT 1');
-
+        SELECT * FROM articles
+        INNER JOIN users ON articles.user_id = users.id
+        INNER JOIN villes_france ON articles.fk_ville = ville_id
+        WHERE articles.id = ? 
+        LIMIT 1');
         $stmt->execute([$id]);
 
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);

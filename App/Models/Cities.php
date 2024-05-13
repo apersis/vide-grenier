@@ -49,4 +49,5 @@ class Cities extends Model {
         return $stmt->fetchAll(\PDO::FETCH_DEFAULT);
     }
 
+
 }

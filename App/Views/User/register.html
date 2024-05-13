@@ -2,10 +2,8 @@
 
 {% block title %}Inscription{% endblock %}
 
-
-
-
 {% block body %}
+
 <div class="container-fluid bg-image">
     <div class="row">
         <div class="login-wraper">
@@ -27,12 +25,12 @@
                         <div class="form-group">
                             <label for="username">Nom d'utilisateur</label>
                             <input type="text" class="form-control" id="username" name="username"
-                                   placeholder="John Doe">
+                                   placeholder="John Doe" maxlength="100">
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1">Email</label>
                             <input type="email" class="form-control" id="exampleInputEmail1" name="email"
-                                   placeholder="exemple@gmail.com">
+                                   placeholder="exemple@gmail.com" maxlength="254">
                         </div>
                         <div class="form-group">
                             <label for="exampleInputCP1">Code Postal</label>
@@ -71,6 +69,7 @@
     </div>
 </div>
 {% endblock body %}
+
 {% block javascript %}
 <script type="text/javascript">
     // Sélection de l'élément <select>
@@ -109,5 +108,25 @@
             }
         }
     });
-</script>
+
+    $('#username').on('input', function() {
+            if (this.value.length > 100) {
+                this.value = this.value.slice(0, 100);
+            }
+        });
+
+        // Limiter le champ "Description" à 65535 caractères
+        $('#exampleInputEmail1').on('input', function() {
+            if (this.value.length > 254) {
+                this.value = this.value.slice(0, 254);
+            }
+        });
+        $('#username').on('input', function() {
+            if (this.value.length > 5) {
+                this.value = this.value.slice(0, 100);
+            }
+        });
+
+    </script>
+
 {% endblock %}

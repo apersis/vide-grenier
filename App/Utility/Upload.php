@@ -4,7 +4,7 @@ namespace App\Utility;
 
 class Upload {
 
-    // TLR : issue #19 -> image volumineuse
+
     public static function uploadFile($file, $fileName)
     {
         $currentDirectory = getcwd();
@@ -21,11 +21,21 @@ class Upload {
 
 
         $uploadPath = $currentDirectory . $uploadDirectory . $pictureName;
-        
+
+        if (!in_array($fileExtension, $fileExtensionsAllowed)) {
+            throw new \Exception("This file extension is not allowed. Please upload a JPEG or PNG file");
+        }
+
+        if ($fileSize > 4000000) {
+            throw new \Exception("File exceeds maximum size (4MB)");
+        }
+
         $didUpload = move_uploaded_file($fileTmpName, $uploadPath);
-        
+
         if ($didUpload) {
             return $pictureName;
+        } else {
+            throw new \Exception("An error occurred. Please contact the administrator.");
         }
     }
 }
