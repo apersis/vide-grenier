@@ -2953,6 +2953,9 @@ footer .f-lang .btn-default {
   line-height: 8px;
   border-radius: 4px;
 }
+.edit-page .input-error {
+  border-color: red;
+}
 .edit-page .u-form label {
   color: #2e2e2e;
   font-weight: normal;
@@ -2963,7 +2966,8 @@ footer .f-lang .btn-default {
   }
 }
 .edit-page .u-form .form-control {
-  padding: 6px 12px;
+  padding: 10px;
+  background-color: #ffffff;
 }
 .edit-page .u-form .u-category {
   color: #2e2e2e !important;
