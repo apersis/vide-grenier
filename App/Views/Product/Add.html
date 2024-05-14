@@ -26,13 +26,13 @@
                                 <div class="form-group">
                                     <label for="e1">Titre</label>
                                     <input type="text" name="name" class="form-control validate" id="titre"
-                                           placeholder="Jeu de cartes (rare)" maxlength="200" required>
+                                           placeholder="Jeu de cartes (rare)" required>
                                 </div>
                             </div>
                             <div class="col-lg-12">
                                 <div class="form-group">
                                     <label for="e2">Description</label>
-                                    <textarea class="form-control validate" name="description" id="description" rows="3" style="resize: none" maxlenght="65 535" required></textarea>
+                                    <textarea class="form-control validate" name="description" id="description" rows="3" style="resize: none" required></textarea>
                                 </div>
                             </div>
                             <div class="col-lg-12">
@@ -196,13 +196,14 @@
             $(this).removeClass('input-error');
         });
 
+
+        
         $('#titre').on('input', function() {
-            if (this.value.length > 5) {
+            if (this.value.length > 200) {
                 this.value = this.value.slice(0, 200);
             }
         });
 
-        // Limiter le champ "Description" à 65535 caractères
         $('#description').on('input', function() {
             if (this.value.length > 65535) {
                 this.value = this.value.slice(0, 65535);
