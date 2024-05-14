@@ -59,8 +59,18 @@
                                                     src="{{ ('/storage/' ~ article.picture) }}" alt=""></a>
                                         </div>
                                         <div class="v-desc">
-                                            <a href="{{ ('/product/' ~ article.id) }}">{{ article.name }}</a>
-                                        </div>
+                                            <a href="{{ ('/product/' ~ article.id) }}">
+                                                <script>
+                                                    var name = "{{ article.name }}";
+                                                    if (name.length > 20) { 
+                                                        var shortenedName = name.substring(0, 20) + ' ...'; 
+                                                        document.write(shortenedName);
+                                                    } else {
+                                                        document.write(name);
+                                                    }
+                                                </script>
+                                            </a>
+                                        </div>                                        
                                         <div class="v-views">
                                             {{article.views}} vues
                                         </div>
