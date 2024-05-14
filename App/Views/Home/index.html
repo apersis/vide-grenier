@@ -68,8 +68,8 @@
         }
 
         function renderProduct($product){
-            var title = $product.name.length > 30 ? $product.name.slice(0, 30) + ' ...' : $product.name;
-            var description = $product.description.length > 20 ? $product.description.slice(0, 20) + ' ...' : $product.description;
+            var title = $product.name.length > 20 ? $product.name.slice(0, 20) + '...' : $product.name;
+            var description = $product.description.length > 20 ? $product.description.slice(0, 20) + '...' : $product.description;
 
             $('<div class="col-lg-4 col-sm-6 articleitem" id="article-pattern">' +
                 '    <div class="b-article">' +
