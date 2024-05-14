@@ -97,6 +97,31 @@ class User extends \Core\Controller
         }
     }
 
+    public static function loginWithCookies(){
+        // Verification de si il existe des cookies "se souvenir de moi"
+        $cookieMailExist = \App\Utility\Cookie::exists("mail"); 
+        $cookieMdpExist = \App\Utility\Cookie::exists("Hpassword");
+        // Verification de si un utilisateur est deja connecté
+        
+
+        if ($cookieMailExist && $cookieMdpExist) {
+
+            $email = \App\Utility\Cookie::get("mail"); 
+            $password = \App\Utility\Cookie::get("Hpassword");
+
+            $user = \App\Models\User::getByLogin($email);
+
+            if ($password !== $user['password']) {
+                return false;
+            }
+
+            file_put_contents('C:\Users\Pc\Documents\CubeVideGrenier\logs.txt', print_r($_SESSION['user'], true), FILE_APPEND);            
+
+        }else{
+            file_put_contents('C:\Users\Pc\Documents\CubeVideGrenier\logs.txt', print_r("non cookie \n", true), FILE_APPEND);
+        }
+    }
+
     private function login($data){
         try {
             if(!isset($data['email'])){
@@ -112,17 +137,6 @@ class User extends \Core\Controller
             // TODO: Create a remember me cookie if the user has selected the option
             // to remained logged in on the login form.
             // https://github.com/andrewdyer/php-mvc-register-login/blob/development/www/app/Model/UserLogin.php#L86
-
-            
-
-            // Check if a remember me cookie exists.
-            $cookiecontiens = \App\Utility\Cookie::exists("RememberMe"); 
-
-            if ($cookiecontiens) {
-                file_put_contents('C:\Users\Pc\Documents\CubeVideGrenier\logs.txt', print_r("oui cookie \n", true), FILE_APPEND);
-            }else{
-                file_put_contents('C:\Users\Pc\Documents\CubeVideGrenier\logs.txt', print_r("non cookie \n", true), FILE_APPEND);
-            }
 
             
             // Si le bouton "se souvenir de moi" est coché, créer un cookie
@@ -185,10 +199,16 @@ class User extends \Core\Controller
         // Destroy all data registered to the session.
 
         // Check if a remember me cookie exists.
-        $cookieexist = \App\Utility\Cookie::exists("RememberMe");
+        $cookieMailExist = \App\Utility\Cookie::exists("mail");
 
-        if ($cookieexist) {
-            \App\Utility\Cookie::delete("RememberMe");
+        if ($cookieMailExist) {
+            \App\Utility\Cookie::delete("mail");
+        }
+
+        $cookiePasswordExist = \App\Utility\Cookie::exists("Hpassword");
+
+        if ($cookiePasswordExist) {
+            \App\Utility\Cookie::delete("Hpassword");
         }
 
         $_SESSION = array();
