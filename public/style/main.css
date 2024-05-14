@@ -2306,6 +2306,14 @@ footer .f-lang .btn-default {
   white-space: pre-wrap;
   word-wrap: break-word;
 }
+.single-article .preview-title a {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+.single-article .v-desc a {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
 .single-article .content-wrapper {
   padding-top: 30px;
 }

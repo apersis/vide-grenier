@@ -103,7 +103,17 @@
 
   }
 
-  .info-content p {
+  .info-content p{
+    white-space: pre-wrap; 
+    word-wrap: break-word;
+  }
+
+  .preview-title a{
+    white-space: pre-wrap; 
+    word-wrap: break-word;
+  }
+
+  .v-desc a{
     white-space: pre-wrap; 
     word-wrap: break-word;
   }
