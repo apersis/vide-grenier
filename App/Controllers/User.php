@@ -113,13 +113,25 @@ class User extends \Core\Controller
             // to remained logged in on the login form.
             // https://github.com/andrewdyer/php-mvc-register-login/blob/development/www/app/Model/UserLogin.php#L86
 
-            file_put_contents('C:\Users\Pc\Documents\CubeVideGrenier\logs.txt', print_r($data, true), FILE_APPEND);
+            
 
+            // Check if a remember me cookie exists.
+            $cookiecontiens = \App\Utility\Cookie::exists("RememberMe"); 
+
+            if ($cookiecontiens) {
+                file_put_contents('C:\Users\Pc\Documents\CubeVideGrenier\logs.txt', print_r("oui cookie \n", true), FILE_APPEND);
+            }else{
+                file_put_contents('C:\Users\Pc\Documents\CubeVideGrenier\logs.txt', print_r("non cookie \n", true), FILE_APPEND);
+            }
+
+            
             // Si le bouton "se souvenir de moi" est coché, créer un cookie
-            /*$remember = $data['#'] === "on";
-            if ($remember and ! self::createRememberCookie($user['id'])) {
-                //throw new Exception();
-            }*/
+            $remember = array_key_exists('#', $data);
+    
+            if ($remember) {
+                \App\Utility\Cookie::put("mail", $data['email'] , 3600*24*365);
+                \App\Utility\Cookie::put("Hpassword", $user['password'], 3600*24*365);
+            }
 
 
             $usercity = \App\Models\Cities::searchById($user['fk_ville']);
@@ -171,6 +183,13 @@ class User extends \Core\Controller
             // https://github.com/andrewdyer/php-mvc-register-login/blob/development/www/app/Model/UserLogin.php#L148
         }*/
         // Destroy all data registered to the session.
+
+        // Check if a remember me cookie exists.
+        $cookieexist = \App\Utility\Cookie::exists("RememberMe");
+
+        if ($cookieexist) {
+            \App\Utility\Cookie::delete("RememberMe");
+        }
 
         $_SESSION = array();
 
