@@ -62,8 +62,8 @@
                                             <a href="{{ ('/product/' ~ article.id) }}">
                                                 <script>
                                                     var name = "{{ article.name }}";
-                                                    if (name.length > 20) { 
-                                                        var shortenedName = name.substring(0, 20) + ' ...'; 
+                                                    if (name.length > 15) { 
+                                                        var shortenedName = name.substring(0, 15) + ' ...'; 
                                                         document.write(shortenedName);
                                                     } else {
                                                         document.write(name);
