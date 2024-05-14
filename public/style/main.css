@@ -1536,13 +1536,17 @@ ul.menu ul li:not(:last-child) {
 
 .loginsignup {
   text-align: right;
-  margin-top: 25px;
 }
 .loginsignup a {
   color: #637076;
 }
 .loginsignup a:hover {
   text-decoration: underline;
+}
+@media only screen and (min-width: 1300px) {
+  .loginsignup {
+    margin-top: 25px;
+  }
 }
 
 .navbar-brand {
@@ -1559,7 +1563,7 @@ ul.menu ul li:not(:last-child) {
     display: flex;
   }
 }
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 767px) {
   .navbar-brand span {
     display: none;
   }
@@ -1963,6 +1967,11 @@ footer .row .padding-def {
 footer .list-inline {
   margin: 0;
   padding: 0;
+}
+@media only screen and (-width: 767px) {
+  footer .list-inline {
+    color: #2e2e2e !important;
+  }
 }
 @media only screen and (max-width: 767px) {
   footer .list-inline li a {

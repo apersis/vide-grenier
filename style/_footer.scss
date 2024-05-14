@@ -25,6 +25,9 @@ footer {
   .list-inline {
     margin: 0;
     padding: 0;
+    @media only screen and (-width: 767px) {
+      color: #2e2e2e !important;
+    }
     li {
       a {
         @media only screen and (max-width: 767px) {

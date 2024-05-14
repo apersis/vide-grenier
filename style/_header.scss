@@ -27,6 +27,7 @@ ul.menu {
   margin-bottom: 0;
   z-index: 10;
   margin-top: 25px;
+
   li {
     &:hover ul {
       display: block;
@@ -213,12 +214,15 @@ ul.menu {
 
 .loginsignup {
   text-align: right;
-  margin-top: 25px;
   a {
     color: $c-icon;
     &:hover {
       text-decoration: underline;
     }
+  }
+
+  @media only screen and (min-width: 1300px) {
+    margin-top: 25px;
   }
 
 }
@@ -232,7 +236,7 @@ ul.menu {
     @include display-flex();
   }
   span {
-    @media only screen and (min-width: 768px) {
+    @media only screen and (min-width: 767px) {
       display: none;
     }
     @media only screen and (max-width: 767px) {
