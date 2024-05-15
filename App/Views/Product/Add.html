@@ -4,7 +4,6 @@
 
 {% block body %}
 
-
 <div class="content-wrapper upload-page edit-page">
 
     <!-- channel -->
@@ -192,10 +191,24 @@
             validateField($(this));
         });
 
+        // Si on clic sur un champs la bordure rouge s'enlève
         $('#productForm .validate').on('focus', function() {
             $(this).removeClass('input-error');
         });
 
+
+        
+        $('#titre').on('input', function() {
+            if (this.value.length > 200) {
+                this.value = this.value.slice(0, 200);
+            }
+        });
+
+        $('#description').on('input', function() {
+            if (this.value.length > 65535) {
+                this.value = this.value.slice(0, 65535);
+            }
+        });
     </script>
 
 {% endblock %}
