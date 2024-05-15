@@ -1351,9 +1351,20 @@ body.ovf--hidden {
 
 ul.menu {
   position: relative;
-  margin-bottom: 0;
+  margin-bottom: 25px;
   z-index: 10;
   margin-top: 25px;
+}
+@media only screen and (min-width: 1300px) {
+  ul.menu {
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+  }
 }
 ul.menu li:hover ul {
   display: block;
@@ -1536,17 +1547,18 @@ ul.menu ul li:not(:last-child) {
 
 .loginsignup {
   text-align: right;
+  margin-top: -50px;
+}
+@media only screen and (min-width: 1300px) {
+  .loginsignup {
+    margin-top: 25px;
+  }
 }
 .loginsignup a {
   color: #637076;
 }
 .loginsignup a:hover {
   text-decoration: underline;
-}
-@media only screen and (min-width: 1300px) {
-  .loginsignup {
-    margin-top: 25px;
-  }
 }
 
 .navbar-brand {
@@ -1563,11 +1575,6 @@ ul.menu ul li:not(:last-child) {
     display: flex;
   }
 }
-@media only screen and (min-width: 767px) {
-  .navbar-brand span {
-    display: none;
-  }
-}
 @media only screen and (max-width: 767px) {
   .navbar-brand span {
     margin-left: 10px;
@@ -1575,6 +1582,11 @@ ul.menu ul li:not(:last-child) {
     font-size: 20px;
     color: #ea2c5a;
     font-weight: bold;
+  }
+}
+@media only screen and (min-width: 767px) {
+  .navbar-brand span {
+    display: none;
   }
 }
 
