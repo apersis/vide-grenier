@@ -1977,12 +1977,19 @@ footer .row .padding-def {
   }
 }
 footer .list-inline {
-  margin: 0;
   padding: 0;
+  margin-left: 100px;
+  margin-top: -40px;
 }
-@media only screen and (-width: 767px) {
+@media only screen and (max-width: 767px) {
   footer .list-inline {
-    color: #2e2e2e !important;
+    margin-left: 0px;
+    margin-top: 0px;
+  }
+}
+@media only screen and (min-width: 768px) {
+  footer .list-inline {
+    margin-top: 20px;
   }
 }
 @media only screen and (max-width: 767px) {
