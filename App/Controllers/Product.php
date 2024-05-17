@@ -22,50 +22,39 @@ class Product extends \Core\Controller
     *Fonction qui vérifié la taille, l'extension et s'il y a un nom de l'image dans le champs 
     *avant la création de la page du produit + ajout de message
     */
+    
     public function indexAction()
     {
-        $error = "";
+
         if(isset($_POST['submit'])) {
+
             try {
                 $f = $_POST;
-                if (!empty($_FILES['picture']['name'])) {
-                    if ($_FILES['picture']['size'] > 0 && $_FILES['picture']['size'] < 4000000) {
-                        $fileExtension = exif_imagetype($_FILES['picture']['tmp_name']);
-                        $allowedTypes = [IMAGETYPE_JPEG, IMAGETYPE_PNG];
-                        if (in_array($fileExtension, $allowedTypes)) {
-                            $f['user_id'] = $_SESSION['user']['id'];
-                            $id = Articles::save($f);
-                            $pictureName = Upload::uploadFile($_FILES['picture'], $id);
-                            if ($pictureName) {
-                                Articles::attachPicture($id, $pictureName);
-                                header('Location: /product/' . $id);
-                            }else {
-                                unlink($_FILES['picture']['tmp_name']);
-                                $error = "L'upload a échoué.";
-                            }
-                        }else{
-                            $error = "L'extension de l'image n'est pas la bonne.";
-                            
-                        }
-                    }else{
-                        $error = "La taille de l'image est trop volumineuse.";
-                    }
-                }else{
-                    $error = "Pas de nom de fichier.";
-                }
-            } catch (\Exception $e) {
 
+                // TODO: Validation
+
+                $f['user_id'] = $_SESSION['user']['id'];
+                $id = Articles::save($f);
+
+                $pictureName = Upload::uploadFile($_FILES['picture'], $id);
+
+                Articles::attachPicture($id, $pictureName);
+
+                header('Location: /product/' . $id);
+            } catch (\Exception $e){
+                    var_dump($e);
             }
         }
-    
-        View::renderTemplate('Product/Add.html', ['error' => $error]);
-    }
-    
 
-    /**
+        View::renderTemplate('Product/Add.html');
+    }
+
+
+    /*
+        /**
      * Affiche la page d'un produit
      * @return void
-     */
+    */
     public function showAction()
     {
         $id = $this->route_params['id'];
@@ -83,4 +72,5 @@ class Product extends \Core\Controller
             'suggestions' => $suggestions
         ]);
     }
+    
 }

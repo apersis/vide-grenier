@@ -17,7 +17,7 @@
     <!-- ///channel -->
 
     <div class="container mt-30">
-        <form action="" method="post" enctype="multipart/form-data">
+        <form id="productForm" action="" method="post" enctype="multipart/form-data">
             <div class="row">
                 <div class="col-lg-6">
                     <div class="u-form">
@@ -25,26 +25,26 @@
                             <div class="col-lg-12">
                                 <div class="form-group">
                                     <label for="e1">Titre</label>
-                                    <input type="text" name="name" class="form-control" id="e1"
-                                           placeholder="Jeu de cartes (rare)">
+                                    <input type="text" name="name" class="form-control validate" id="titre"
+                                           placeholder="Jeu de cartes (rare)" required>
                                 </div>
                             </div>
                             <div class="col-lg-12">
                                 <div class="form-group">
                                     <label for="e2">Description</label>
-                                    <textarea class="form-control" name="description" id="e2" rows="3" style="resize: none"></textarea>
+                                    <textarea class="form-control validate" name="description" id="description" rows="3" style="resize: none" required></textarea>
                                 </div>
                             </div>
                             <div class="col-lg-12">
                                 <div class="form-group">
                                     <label for="e2">Code Postal</label>
-                                    <input type="text" id="codepostal" class="form-control cityAutoComplete" placeholder="29200" value="{{ user.city_code }}">
+                                    <input type="text" id="codepostal" class="form-control validate cityAutoComplete" placeholder="29200" value="{{ user.city_code }}" required>
                                 </div>
                             </div>
                             <div class="col-lg-12">
                                 <div class="form-group">
                                     <label for="e2">Ville</label>
-                                    <select name="fk_ville" id="villeInput" class="form-control">
+                                    <select name="fk_ville" id="villeInput" class="form-control validate">
                                         <option value="{{ user.city_id }}">{{ user.city_name }}</option>
                                     </select>
                                     
@@ -54,7 +54,7 @@
                             <div class="col-lg-12">
                                 <div class="form-group">
                                     <label for="e3">Image</label>
-                                    <input type="file" class="form-control" name="picture" id="e3" rows="3"/>
+                                    <input type="file" class="form-control validate" name="picture" id="e4" rows="3" required/>
                                     {% if error %}
                                         <p class="text-danger">{{ error }}</p>
                                     {% endif %}
@@ -83,8 +83,7 @@
 {% block javascript %}
     <script type="text/javascript">
 
-
-            // Sélection de l'élément <select>
+        // Sélection de l'élément <select>
             var selectElement = document.getElementById('villeInput');
 
             
@@ -123,5 +122,93 @@
                     }
                 }
             });
+
+
+        // Fonction de validation pour les champs
+        function validateField(field) {
+            if (field.val().trim() === '') {
+                field.addClass('input-error');
+                return false;
+            } else {
+                field.removeClass('input-error');
+                return true;
+            }
+        }
+
+        // Validation lors de la soumission du formulaire
+        $('#productForm').submit(function(event) {
+            var formValid = true;
+
+            // Valider chaque champ
+            $('#productForm .validate').each(function() {
+                if (!validateField($(this))) {
+                    formValid = false;
+                }
+            });
+
+            // Validation du champ de l'image
+            var pictureInput = $('#e4')[0]; 
+            var pictureFile = pictureInput.files[0]; 
+            var allowedExtensions = ['jpg', 'jpeg', 'png'];
+            var pictureExtension = pictureFile ? pictureFile.name.split('.').pop().toLowerCase() : null;
+
+            if (pictureFile) {
+                // Vérifier la taille du fichier
+                if (pictureFile.size > 4 * 1024 * 1024) { 
+                    $('#e4').val('');
+                    formValid = false;
+                    alert('La taille de l\'image ne doit pas dépasser 4 MB.');
+                }
+
+                // Vérifier l'extension du fichier
+                if (allowedExtensions.indexOf(pictureExtension) === -1) {
+                    $('#e4').val('');
+                    formValid = false;
+                    alert('L\'extension de l\'image n\'est pas la bonne.');
+                }
+            } else {
+                // Aucune image sélectionnée
+                formValid = false;
+                alert('Veuillez sélectionner une image.');
+            }
+
+            // Si un champ est vide, empêcher la soumission du formulaire
+            if (!formValid) {
+                event.preventDefault();
+            }
+
+        });
+
+        // Validation lorsque l'utilisateur clique sur le bouton "Valider"
+        $('#productForm button[name="submit"]').click(function() {
+            $('#productForm .validate').each(function() {
+                validateField($(this));
+            });
+        });
+ 
+        // Gestion de l'événement input pour supprimer la bordure rouge lors de la saisie dans les champs
+        $('#productForm .validate').on('input', function() {
+            validateField($(this));
+        });
+
+        // Si on clic sur un champs la bordure rouge s'enlève
+        $('#productForm .validate').on('focus', function() {
+            $(this).removeClass('input-error');
+        });
+
+
+        
+        $('#titre').on('input', function() {
+            if (this.value.length > 200) {
+                this.value = this.value.slice(0, 200);
+            }
+        });
+
+        $('#description').on('input', function() {
+            if (this.value.length > 65535) {
+                this.value = this.value.slice(0, 65535);
+            }
+        });
     </script>
+
 {% endblock %}
