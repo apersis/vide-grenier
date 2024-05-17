@@ -98,11 +98,21 @@ class User extends \Core\Controller
     }
 
     public static function loginWithCookies(){
+        
+        file_put_contents('C:\Users\Pc\Documents\CubeVideGrenier\logs.txt', print_r("ok function cookie\n", true), FILE_APPEND);
+
         // Verification de si il existe des cookies "se souvenir de moi"
         $cookieMailExist = \App\Utility\Cookie::exists("mail"); 
         $cookieMdpExist = \App\Utility\Cookie::exists("Hpassword");
         // Verification de si un utilisateur est deja connecté
-        
+
+        if (empty($_SESSION)){
+            $isSessionConnecte = 0;
+        }else{
+            $isSessionConnecte = 1;
+        }
+
+        file_put_contents('C:\Users\Pc\Documents\CubeVideGrenier\logs.txt', print_r($isSessionConnecte, true), FILE_APPEND);
 
         if ($cookieMailExist && $cookieMdpExist) {
 
@@ -115,10 +125,31 @@ class User extends \Core\Controller
                 return false;
             }
 
+
             file_put_contents('C:\Users\Pc\Documents\CubeVideGrenier\logs.txt', print_r($_SESSION['user'], true), FILE_APPEND);            
+
+
+            $usercity = \App\Models\Cities::searchById($user['fk_ville']);
+
+            $_SESSION['user'] = array(
+                'id' => $user['id'],
+                'username' => $user['username'],
+                'city_id' => $usercity[0]['ville_id'],
+                'city_name' => $usercity[0]['ville_nom_reel'],
+                'city_code' => $usercity[0]['ville_code_postal'],
+            );
+
+            View::renderTemplate('Home/index.html', []);
+
+            return true;
 
         }else{
             file_put_contents('C:\Users\Pc\Documents\CubeVideGrenier\logs.txt', print_r("non cookie \n", true), FILE_APPEND);
+
+            View::renderTemplate('Home/index.html', []);
+
+            return true;
+
         }
     }
 
