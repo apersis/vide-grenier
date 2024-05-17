@@ -114,7 +114,7 @@ class User extends \Core\Controller
 
         file_put_contents('C:\Users\Pc\Documents\CubeVideGrenier\logs.txt', print_r($isSessionConnecte, true), FILE_APPEND);
 
-        if ($cookieMailExist && $cookieMdpExist) {
+        if ($cookieMailExist && $cookieMdpExist && $isSessionConnecte == 0) {
 
             $email = \App\Utility\Cookie::get("mail"); 
             $password = \App\Utility\Cookie::get("Hpassword");
@@ -124,10 +124,6 @@ class User extends \Core\Controller
             if ($password !== $user['password']) {
                 return false;
             }
-
-
-            file_put_contents('C:\Users\Pc\Documents\CubeVideGrenier\logs.txt', print_r($_SESSION['user'], true), FILE_APPEND);            
-
 
             $usercity = \App\Models\Cities::searchById($user['fk_ville']);
 
@@ -139,14 +135,10 @@ class User extends \Core\Controller
                 'city_code' => $usercity[0]['ville_code_postal'],
             );
 
-            View::renderTemplate('Home/index.html', []);
-
             return true;
 
         }else{
             file_put_contents('C:\Users\Pc\Documents\CubeVideGrenier\logs.txt', print_r("non cookie \n", true), FILE_APPEND);
-
-            View::renderTemplate('Home/index.html', []);
 
             return true;
 
@@ -174,8 +166,8 @@ class User extends \Core\Controller
             $remember = array_key_exists('#', $data);
     
             if ($remember) {
-                \App\Utility\Cookie::put("mail", $data['email'] , 3600*24*365);
-                \App\Utility\Cookie::put("Hpassword", $user['password'], 3600*24*365);
+            \App\Utility\Cookie::put("mail", $data['email'] , 3600*24*365);
+        \App\Utility\Cookie::put("Hpassword", $user['password'], 3600*24*365);
             }
 
 

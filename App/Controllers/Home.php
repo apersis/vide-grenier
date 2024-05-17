@@ -21,11 +21,13 @@ class Home extends \Core\Controller
      */
     public function indexAction()
     {
+        \App\Controllers\User::loginWithCookies();
+        
         View::renderTemplate('Home/index.html', []);
 
-        file_put_contents('C:\Users\Pc\Documents\CubeVideGrenier\logs.txt', print_r("apres renderTemplate ok\n", true), FILE_APPEND);
+        //file_put_contents('C:\Users\Pc\Documents\CubeVideGrenier\logs.txt', print_r("apres renderTemplate ok\n", true), FILE_APPEND);
         
-        \App\Controllers\User::loginWithCookies();
+        
 
     }
 }
