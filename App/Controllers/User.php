@@ -99,20 +99,16 @@ class User extends \Core\Controller
 
     public static function loginWithCookies(){
         
-        file_put_contents('C:\Users\Pc\Documents\CubeVideGrenier\logs.txt', print_r("ok function cookie\n", true), FILE_APPEND);
-
         // Verification de si il existe des cookies "se souvenir de moi"
         $cookieMailExist = \App\Utility\Cookie::exists("mail"); 
         $cookieMdpExist = \App\Utility\Cookie::exists("Hpassword");
-        // Verification de si un utilisateur est deja connecté
 
+        // Verification de si un utilisateur est deja connecté
         if (empty($_SESSION)){
             $isSessionConnecte = 0;
         }else{
             $isSessionConnecte = 1;
         }
-
-        file_put_contents('C:\Users\Pc\Documents\CubeVideGrenier\logs.txt', print_r($isSessionConnecte, true), FILE_APPEND);
 
         if ($cookieMailExist && $cookieMdpExist && $isSessionConnecte == 0) {
 
@@ -138,8 +134,7 @@ class User extends \Core\Controller
             return true;
 
         }else{
-            file_put_contents('C:\Users\Pc\Documents\CubeVideGrenier\logs.txt', print_r("non cookie \n", true), FILE_APPEND);
-
+            
             return true;
 
         }
@@ -156,20 +151,14 @@ class User extends \Core\Controller
             if (Hash::generate($data['password'], $user['salt']) !== $user['password']) {
                 return false;
             }
-
-            // TODO: Create a remember me cookie if the user has selected the option
-            // to remained logged in on the login form.
-            // https://github.com/andrewdyer/php-mvc-register-login/blob/development/www/app/Model/UserLogin.php#L86
-
             
             // Si le bouton "se souvenir de moi" est coché, créer un cookie
             $remember = array_key_exists('#', $data);
     
             if ($remember) {
-            \App\Utility\Cookie::put("mail", $data['email'] , 3600*24*365);
-        \App\Utility\Cookie::put("Hpassword", $user['password'], 3600*24*365);
+                \App\Utility\Cookie::put("mail", $data['email'] , 3600*24*365);
+                \App\Utility\Cookie::put("Hpassword", $user['password'], 3600*24*365);
             }
-
 
             $usercity = \App\Models\Cities::searchById($user['fk_ville']);
 
