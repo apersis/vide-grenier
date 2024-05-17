@@ -1,11 +1,26 @@
+version: '3.8'
+
 services:
   php:
     image: php:8.2-apache
-    container_name: php82videgrenier
+    container_name: phpvidegrenier
     ports:
       - 8000:80
+    restart: always
+    working_dir: /public
     volumes:
-      - ./:/var/www/html
-    build:
+      - /default.conf:/var/www/html
+    build: 
       context: .
       dockerfile: Dockerfile
+
+  composer:
+    image: composer:latest
+    command: composer install --ignore-platform-reqs --no-interaction
+    volumes:
+      - .:/App
+    working_dir: /App
+
+
+#volumes:
+ # mysql_data: {}

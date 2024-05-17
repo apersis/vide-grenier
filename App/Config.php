@@ -42,3 +42,12 @@ class Config
      */
     const SHOW_ERRORS = true;
 }
+
+try{
+    $db = new PDO($dbn, DB_USER, DB_PASSWORD);
+    echo "Connecté";
+
+}catch(PDOException $exception) {
+    echo 'Une erreur est survenue : ' . $exception->getMessage();
+    die;
+}
