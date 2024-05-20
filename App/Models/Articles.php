@@ -22,7 +22,7 @@ class Articles extends Model {
     public static function getAll($filter) {
         $db = static::getDB();
 
-        $query = 'SELECT * FROM articles ';
+        $query = 'SELECT * FROM articles WHERE is_actif = 1';
 
         switch ($filter){
             case 'views':
