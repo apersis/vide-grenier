@@ -6,6 +6,7 @@ use App\Models\Articles;
 use App\Models\Cities;
 use \Core\View;
 use Exception;
+use App\Controllers\Home;
 
 /**
  * API controller
@@ -40,4 +41,21 @@ class Api extends \Core\Controller
         header('Content-Type: application/json');
         echo json_encode($cities);
     }
+     
+    
+    
+    /**
+     * Suppression soft d'un article
+     * On passe le champ 'is_actif' a 0
+     * 
+     * @throws Exception
+     */
+    public function DeleteArticleAction(){
+
+        $id = $_GET['id'];
+
+        $articles = Articles::deleteOne($id);
+        
+    }
+
 }

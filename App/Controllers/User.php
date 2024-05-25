@@ -167,6 +167,7 @@ class User extends \Core\Controller
             $_SESSION['user'] = array(
                 'id' => $user['id'],
                 'username' => $user['username'],
+                'email' => $data['email'],
                 'city_id' => $usercity[0]['ville_id'],
                 'city_name' => $usercity[0]['ville_nom_reel'],
                 'city_code' => $usercity[0]['ville_code_postal'],

@@ -19,15 +19,11 @@ class Home extends \Core\Controller
      * @return void
      * @throws \Exception
      */
-    public function indexAction()
+    public static function indexAction()
     {
         \App\Controllers\User::loginWithCookies();
         
-        View::renderTemplate('Home/index.html', []);
-
-        //file_put_contents('C:\Users\Pc\Documents\CubeVideGrenier\logs.txt', print_r("apres renderTemplate ok\n", true), FILE_APPEND);
+        View::renderTemplate('Home/index.html', []);      
         
-        
-
     }
 }
