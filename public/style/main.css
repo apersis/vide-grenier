@@ -2330,6 +2330,18 @@ footer .f-lang .btn-default {
 .single-article .h-article.last-row {
   padding-bottom: 0px;
 }
+.single-article .info-content p {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+.single-article .preview-title a {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+.single-article .v-desc a {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
 .single-article .content-wrapper {
   padding-top: 30px;
 }
