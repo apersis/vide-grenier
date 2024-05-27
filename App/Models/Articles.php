@@ -89,7 +89,7 @@ class Articles extends Model {
         $stmt = $db->prepare('
             SELECT *, articles.id as id FROM articles
             LEFT JOIN users ON articles.user_id = users.id
-            WHERE articles.user_id = ?');
+            WHERE articles.user_id = ? AND is_actif = 1');
 
         $stmt->execute([$id]);
 
