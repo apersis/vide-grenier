@@ -40,10 +40,13 @@
                         <p>{{article.description}}</p>
                     </div>
                     <div class="u-area mt-small">
-
+                    {% if article.email != user.email %}
                     <a name="submit" href="mailto:{{article.email}}" class="btn btn-primary u-btn">Contacter {{article
                         .username}}</a>
-
+                    {% endif %}
+                    {% if article.email == user.email %}
+                    <input id="buttonDelete" type="button" name="delete" class="btn btn-primary suppr-btn" value="Supprimer l'article"></input>
+                    {% endif %}
                     </div>
                 </div>
             </div>
@@ -75,3 +78,33 @@
 </div>
 
 {% endblock body %}
+
+{% block javascript %}
+
+<script type="text/javascript">
+
+    var boutonSupprimer = null;
+    if (document.getElementById("buttonDelete")) {
+        boutonSupprimer = document.getElementById("buttonDelete");
+        boutonSupprimer.addEventListener("click", updateBtn);
+    }
+    
+    
+
+    function updateBtn() {
+        if (confirm('Etes-vous sur de vouloir supprimer cet article ?')) {
+            $.ajax(
+                '/api/DeleteArticle',
+                {
+                    data: { 'id':'{{article.picture}}'}
+                }
+            );
+            setTimeout(function() {
+                document.location.href="http://videgrenier/";
+            }, 10); 
+        }
+    }
+
+</script>
+
+{% endblock %}
