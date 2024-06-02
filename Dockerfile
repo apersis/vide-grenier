@@ -1,21 +1,22 @@
 FROM php:8.2-apache
 
-#Mise à jour du système
-RUN apt-get update && apt-get upgrade -y && apt-get install -y
+# Installer les utilitaires nécessaires et activer mod_rewrite
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    vim \
+    git \
+    && a2enmod rewrite \
+    && service apache2 restart
 
-#Installation d'extension par Docker et activation
+# Définir le ServerName pour Apache
+RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
+
 RUN docker-php-ext-install mysqli pdo pdo_mysql && docker-php-ext-enable mysqli pdo_mysql
 
-RUN a2enmod rewrite
+# Copier les fichiers de l'application
+ADD . /var/www/ 
 
-# Copie du contenu de l'application dans le répertoire de travail
-COPY . /public
-
-# Définir le répertoire de travail
-#WORKDIR /public
-
-#On initialise le port
+# Exposer le port 80
 EXPOSE 80
 
-
-#Problème d'installation de mysqli → Fais un docker-compose build avant
+# Commande par défaut pour démarrer Apache
+CMD ["apache2-foreground"]
