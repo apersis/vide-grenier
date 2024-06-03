@@ -40,13 +40,13 @@
                         <p>{{article.description}}</p>
                     </div>
                     <div class="u-area mt-small">
-                    {% if article.email != user.email %}
-                    <a name="submit" href="mailto:{{article.email}}" class="btn btn-primary u-btn">Contacter {{article
-                        .username}}</a>
+                        
+                    {% if user.is_admin == 1 or article.email == user.email %}
+                        <input id="buttonDelete" type="button" name="delete" class="btn btn-primary suppr-btn" value="Supprimer l'article"/>
+                    {% else %}
+                        <a name="submit" href="mailto:{{article.email}}" class="btn btn-primary u-btn">Contacter {{article.username}}</a>
                     {% endif %}
-                    {% if article.email == user.email %}
-                    <input id="buttonDelete" type="button" name="delete" class="btn btn-primary suppr-btn" value="Supprimer l'article"></input>
-                    {% endif %}
+                    
                     </div>
                 </div>
             </div>
