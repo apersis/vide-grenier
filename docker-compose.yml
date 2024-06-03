@@ -1,5 +1,4 @@
-services :
-
+services:
   php:
     image: php:8.2-apache
     container_name: phpDeveloppementCube
@@ -21,27 +20,27 @@ services :
       - .:/App
     working_dir: /App
 
-   db:
-     image: mysql:8.0
-     container_name: mysqlDeveloppementCube
-     environment:
-       MYSQL_ROOT_PASSWORD: pass
-       MYSQL_DATABASE: videgrenierenligne
-       MYSQL_USER: webapplication
-       MYSQL_PASSWORD: 653rag9T
-     ports:
-       - 3312:3306
-     volumes:
-       - ./sql:/docker-entrypoint-initdb.d
+  db:
+    image: mysql:8.0
+    container_name: mysqlDeveloppementCube
+    environment:
+      MYSQL_ROOT_PASSWORD: pass
+      MYSQL_DATABASE: videgrenierenligne
+      MYSQL_USER: webapplication
+      MYSQL_PASSWORD: 653rag9T
+    ports:
+      - 3300:3306
+    volumes:
+      - ./sql:/docker-entrypoint-initdb.d
 
-   phpma:
-     image: phpmyadmin/phpmyadmin
-     container_name: phpmyadmin
-     environment:
-       PMA_ARBITRARY: 1
-       PMA_HOST: db
-       PMA_USER: webapplication
-       PMA_PASSWORD: 653rag9T
-       UPLOAD_LIMITE: 20M
-     ports:
-       - 8030:80
+  phpma:
+    image: phpmyadmin/phpmyadmin
+    container_name: containerphpmyadmin
+    environment:
+      PMA_ARBITRARY: 1
+      PMA_HOST: db
+      PMA_USER: webapplication
+      PMA_PASSWORD: 653rag9T
+      UPLOAD_LIMITE: 20M
+    ports:
+      - 8899:80
