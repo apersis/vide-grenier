@@ -166,8 +166,6 @@ class User extends \Core\Controller
 
             $usercity = \App\Models\Cities::searchById($user['fk_ville']);
 
-            file_put_contents('C:\Users\Pc\Documents\CubeVideGrenier\logs.txt', print_r($user, true), FILE_APPEND);
-
             $_SESSION['user'] = array(
                 'id' => $user['id'],
                 'username' => $user['username'],
