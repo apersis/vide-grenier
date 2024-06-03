@@ -2883,6 +2883,7 @@ footer .f-lang .btn-default {
 }
 
 .suppr-btn {
+  margin-top: 60px;
   background-color: red;
   color: white;
   padding: 15px 65px;
