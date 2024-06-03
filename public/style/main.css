@@ -2882,6 +2882,20 @@ footer .f-lang .btn-default {
   margin-bottom: 7px;
 }
 
+.suppr-btn {
+  background-color: red;
+  color: white;
+  padding: 15px 65px;
+  border: solid 1px red;
+  height: 48px;
+  border-radius: 24px;
+  font-weight: 500;
+}
+.suppr-btn:hover {
+  color: red;
+  background-color: #ffffff;
+}
+
 .edit-page {
   text-align: left;
 }

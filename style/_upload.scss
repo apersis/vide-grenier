@@ -64,6 +64,21 @@
 
 }
 
+.suppr-btn {
+  margin-top: 60px;
+  background-color: red;
+  color: white;
+  padding: 15px 65px;
+  border: solid 1px red;
+  height: 48px;
+  border-radius: 24px;
+  font-weight: 500;
+  &:hover {
+    color: red;
+    background-color: $c-white;
+  }
+}
+
 .edit-page {
   text-align: left;
   .u-details-wrap {
