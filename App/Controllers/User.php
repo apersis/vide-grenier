@@ -128,6 +128,8 @@ class User extends \Core\Controller
             $_SESSION['user'] = array(
                 'id' => $user['id'],
                 'username' => $user['username'],
+                'is_admin' => $user['is_admin'],
+                'email' => $email,
                 'city_id' => $usercity[0]['ville_id'],
                 'city_name' => $usercity[0]['ville_nom_reel'],
                 'city_code' => $usercity[0]['ville_code_postal'],
@@ -164,9 +166,12 @@ class User extends \Core\Controller
 
             $usercity = \App\Models\Cities::searchById($user['fk_ville']);
 
+            file_put_contents('C:\Users\Pc\Documents\CubeVideGrenier\logs.txt', print_r($user, true), FILE_APPEND);
+
             $_SESSION['user'] = array(
                 'id' => $user['id'],
                 'username' => $user['username'],
+                'is_admin' => $user['is_admin'],
                 'email' => $data['email'],
                 'city_id' => $usercity[0]['ville_id'],
                 'city_name' => $usercity[0]['ville_nom_reel'],
