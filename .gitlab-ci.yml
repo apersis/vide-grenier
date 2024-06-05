@@ -75,7 +75,10 @@ test-phpmyadmin:
     - sleep 20
     - docker run -d --name phpmyadmin-container -p 8899:80 --link mysql-container:db -e PMA_HOST=db -e PMA_USER=webapplication -e PMA_PASSWORD=653rag9T phpmyadmin/phpmyadmin
     - sleep 10
+    - docker exec phpmyadmin-container apt-get update
+    - docker exec phpmyadmin-container apt-get install -y curl
     - curl http://127.0.0.1:8899
+
 test-composer:
   stage: test
   image: docker:latest
