@@ -31,7 +31,6 @@ test:
     - sleep 10 # Attendre que le conteneur soit prêt
     - curl http://127.0.0.1:8000
 
-
 test-job2:
   stage: test
   script:
