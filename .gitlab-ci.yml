@@ -5,12 +5,24 @@ stages:
 
 build-job:
   stage: build
+    image: ruby:3.1
+  services:
+    - docker:dind
+  before_script:
+    - apt-get update
+    - apt-get install -y docker.io
   script:
     - docker build -t illona/php:29c264445db9 .
     - docker push illona/php:29c264445db9
 
 test:
   stage: test
+  image: ruby:3.1
+  services:
+    - docker:dind
+  before_script:
+    - apt-get update
+    - apt-get install -y docker.io
   script:
     - docker run -d -p 8000:80 illona/php:29c264445db9
     - sleep 10 # Attendre que le conteneur soit prêt
