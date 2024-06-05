@@ -1,0 +1,74 @@
+stages:
+  - test
+
+test-php:
+  stage: test
+  image: docker:latest
+  services:
+    - name: illona/60f2559a334b:29c264445db9
+      alias: php
+    - docker:dind
+  variables:
+    DOCKER_HOST: tcp://docker:2375
+    DOCKER_TLS_CERTDIR: ""
+  script:
+    - docker run -d --name php-container -p 8000:80 illona/60f2559a334b:29c264445db9
+    - sleep 10 # Attendre que le conteneur soit prêt
+    - docker exec php-container apt-get update
+    - docker exec php-container apt-get install -y curl
+    - curl http://127.0.0.1:8000
+
+test-mysql:
+  stage: test
+  image: mysql:8.0
+  services:
+    - name: mysql:8.0
+      alias: db
+    - docker:dind
+  variables:
+    DOCKER_HOST: tcp://docker:2375
+    DOCKER_TLS_CERTDIR: ""
+    MYSQL_ROOT_PASSWORD: pass
+    MYSQL_DATABASE: videgrenierenligne
+    MYSQL_USER: webapplication
+    MYSQL_PASSWORD: 653rag9T
+  script:
+    - docker run -d --name mysql-container -p 3300:3306 -e MYSQL_ROOT_PASSWORD=pass -e MYSQL_DATABASE=videgrenierenligne -e MYSQL_USER=webapplication -e MYSQL_PASSWORD=653rag9T mysql:8.0
+    - sleep 20 # Attendre que le conteneur soit prêt
+    - docker exec mysql-container mysql -uwebapplication -p653rag9T -e "SHOW DATABASES;"
+
+test-phpmyadmin:
+  stage: test
+  image: docker:latest
+  services:
+    - name: phpmyadmin/phpmyadmin
+      alias: phpma
+    - name: mysql:8.0
+      alias: db
+    - docker:dind
+  variables:
+    DOCKER_HOST: tcp://docker:2375
+    DOCKER_TLS_CERTDIR: ""
+    MYSQL_ROOT_PASSWORD: pass
+    MYSQL_DATABASE: videgrenierenligne
+    MYSQL_USER: webapplication
+    MYSQL_PASSWORD: 653rag9T
+  script:
+    - docker run -d --name mysql-container -p 3300:3306 -e MYSQL_ROOT_PASSWORD=pass -e MYSQL_DATABASE=videgrenierenligne -e MYSQL_USER=webapplication -e MYSQL_PASSWORD=653rag9T mysql:8.0
+    - sleep 20 # Attendre que le conteneur soit prêt
+    - docker run -d --name phpmyadmin-container -p 8899:80 --link mysql-container:db -e PMA_HOST=db -e PMA_USER=webapplication -e PMA_PASSWORD=653rag9T phpmyadmin/phpmyadmin
+    - sleep 10 # Attendre que le conteneur soit prêt
+    - docker exec phpmyadmin-container apt-get update
+    - docker exec phpmyadmin-container apt-get install -y curl
+    - docker exec phpmyadmin-container curl http://127.0.0.1:80
+
+test-composer:
+  stage: test
+  image: docker/compose:latest
+  services:
+    - docker:dind
+  variables:
+    DOCKER_HOST: tcp://docker:2375
+    DOCKER_TLS_CERTDIR: ""
+  script:
+    - docker-compose run --rm composer install --ignore-platform-reqs --no-interaction
