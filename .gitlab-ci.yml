@@ -28,10 +28,8 @@ test:
     DOCKER_HOST: tcp://docker:2375
     DOCKER_TLS_CERTDIR: ""
   script:
-    - docker run -d -p 8000:80 illona/php:29c264445db9
+    - docker run -d -p 8000:80 illona/php:29c264445db9 bash -c "apt-get update && apt-get install -y curl && curl http://127.0.0.1:8000"
     - sleep 10 # Attendre que le conteneur soit prêt
-    - apt-get update && apt-get install -y curl
-    - curl http://127.0.0.1:8000
 
 deploy-prod:
   stage: deploy
