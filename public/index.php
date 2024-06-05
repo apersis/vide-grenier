@@ -37,6 +37,7 @@ $router->add('product', ['controller' => 'Product', 'action' => 'index', 'privat
 $router->add('product/{id:\d+}', ['controller' => 'Product', 'action' => 'show']);
 $router->add('privacy', ['controller' => 'Policy', 'action' => 'privacy']);
 $router->add('cookie', ['controller' => 'Policy', 'action' => 'cookie']);
+$router->add('stats', ['controller' => 'Stats', 'action' => 'stats']);
 
 $router->add('{controller}/{action}');
 

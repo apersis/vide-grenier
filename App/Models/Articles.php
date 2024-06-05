@@ -164,6 +164,26 @@ class Articles extends Model {
         $stmt->execute();
     }
 
+    
+    public static function getNumberByMounth()
+    {
+        $db = static::getDB();
+
+        $stmt = $db->prepare('
+        SELECT 
+            DATE_FORMAT(creation_date, \'%Y-%m\') AS month,
+            COUNT(*) AS article_count
+        FROM 
+            articles
+        GROUP BY 
+            month
+        ORDER BY 
+            month;
+        ');
+
+        return $stmt->fetch(\PDO::FETCH_ASSOC);
+    }
+
 
 
 
