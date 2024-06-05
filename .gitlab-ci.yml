@@ -27,14 +27,6 @@ build-job:
     - docker push illona/60f2559a334b:933569f3a9f6 # phpmyadmin
     - docker push illona/8ee9858477ab:bb7290db0071 # composer
 
-
-trigger-child-pipeline:
-  stage: test
-  trigger:
-    include: .child-pipeline.yml
-    strategy: depend
-
-
 test-php:
   stage: test
   image: docker:latest
