@@ -34,6 +34,70 @@ trigger-child-pipeline:
     include: .child-pipeline.yml
     strategy: depend
 
+
+test-php:
+  stage: test
+  image: docker:latest
+  services:
+    - docker:dind
+  variables:
+    DOCKER_HOST: tcp://docker:2375
+    DOCKER_TLS_CERTDIR: ""
+  script:
+    - docker run -d -p 8000:80 illona/php:29c264445db9 bash -c "apt-get update && apt-get install -y curl && curl http://127.0.0.1:8000"
+    - sleep 10
+
+test-mysql:
+  stage: test
+  image: docker:latest
+  services:
+    - docker:dind
+  variables:
+    DOCKER_HOST: tcp://docker:2375
+    DOCKER_TLS_CERTDIR: ""
+    MYSQL_ROOT_PASSWORD: pass
+    MYSQL_DATABASE: videgrenierenligne
+    MYSQL_USER: webapplication
+    MYSQL_PASSWORD: 653rag9T
+  script:
+    - docker run -d --name mysql-container -p 3300:3306 -e MYSQL_ROOT_PASSWORD=pass -e MYSQL_DATABASE=videgrenierenligne -e MYSQL_USER=webapplication -e MYSQL_PASSWORD=653rag9T mysql:8.0
+    - sleep 20
+    - docker exec mysql-container mysql -uwebapplication -p653rag9T -e "SHOW DATABASES;"
+
+test-phpmyadmin:
+  stage: test
+  image: docker:latest
+  services:
+    - name: illona/phpmyadmin:933569f3a9f6
+      alias: phpmyadmin
+    - docker:dind
+  variables:
+    DOCKER_HOST: tcp://docker:2375
+    DOCKER_TLS_CERTDIR: ""
+    MYSQL_ROOT_PASSWORD: pass
+    MYSQL_DATABASE: videgrenierenligne
+    MYSQL_USER: webapplication
+    MYSQL_PASSWORD: 653rag9T
+  script:
+    - docker run -d --name mysql-container -p 3300:3306 -e MYSQL_ROOT_PASSWORD=pass -e MYSQL_DATABASE=videgrenierenligne -e MYSQL_USER=webapplication -e MYSQL_PASSWORD=653rag9T mysql:8.0
+    - sleep 20
+    - docker run -d --name phpmyadmin-container -p 8899:80 --link mysql-container:db -e PMA_HOST=db -e PMA_USER=webapplication -e PMA_PASSWORD=653rag9T phpmyadmin/phpmyadmin
+    - sleep 10
+    - docker exec phpmyadmin-container apt-get update
+    - docker exec phpmyadmin-container apt-get install -y curl
+    - docker exec phpmyadmin-container curl http://127.0.0.1:80
+
+test-composer:
+  stage: test
+  image: docker:latest
+  services:
+    - docker:dind
+  variables:
+    DOCKER_HOST: tcp://docker:2375
+    DOCKER_TLS_CERTDIR: ""
+  script:
+    - docker-compose run --rm composer install --ignore-platform-reqs --no-interaction
+
 deploy-prod:
   stage: deploy
   script:
