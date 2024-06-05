@@ -77,7 +77,7 @@ test-phpmyadmin:
     - sleep 10
     - docker exec phpmyadmin-container apt-get update
     - docker exec phpmyadmin-container apt-get install -y curl
-    - curl http://127.0.0.1:8899
+    - docker exec phpmyadmin-container curl http://127.0.0.1:80
 
 test-composer:
   stage: test
