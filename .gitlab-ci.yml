@@ -15,8 +15,9 @@ build-job:
     DOCKER_HOST: tcp://docker:2375
     DOCKER_TLS_CERTDIR: ""
   script:
-    - docker build -t illona/php:29c264445db9 .
-    - docker push illona/php:29c264445db9
+    - docker login docker.io -u illona -p videgrenier
+    - docker build -t illona/60f2559a334b:29c264445db9 .
+    - docker push illona/60f2559a334b:29c264445db9
 
 test:
   stage: test
