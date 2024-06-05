@@ -1,12 +1,20 @@
+stages:
+  - build
+  - test
+  - deploy
+
 build-job:
   stage: build
   script:
-    - echo "Hello, $GITLAB_USER_LOGIN!"
+    - docker build -t illona/php:29c264445db9 .
+    - docker push illona/php:29c264445db9
 
-test-job1:
+test:
   stage: test
   script:
-    - echo "This job tests something"
+    - docker run -d -p 8000:80 illona/php:29c264445db9
+    - sleep 10 # Attendre que le conteneur soit prêt
+    - curl http://127.0.0.1:8000
 
 test-job2:
   stage: test
