@@ -14,12 +14,12 @@
                             <div class="col-lg-10 col-sm-10 col-xs-8">
                                 <ul class="list-inline">
                                     <li>
-                                        <a href="#" class="color-active">
+                                        <a class="menu-item color-active" onClick="getProductsAndRender('all')">
                                             <span class="visible-xs">À la une</span>
                                             <span class="hidden-xs">À la une</span>
                                         </a>
                                     </li>
-                                    <li><a href="#">Autour de moi</a></li>
+                                    <li><a class="menu-item" onclick="getAroundOfMe()">Autour de moi</a></li>
                                 </ul>
                             </div>
                             <div class="col-lg-2 col-sm-2 col-xs-4">
@@ -67,6 +67,17 @@
             });
         }
 
+        function getAroundOfMe() {
+             $.ajax({
+                url: "/api/around",
+            }).done(function(result) {
+                $('#articlelist').empty();
+                for(let i = 0; i < result.length; i++){
+                    renderProduct(result[i])
+                }
+            });
+        }
+
         function renderProduct($product){
             var title = $product.name.length > 25 ? $product.name.slice(0, 25) + '...' : $product.name;
             var description = $product.description.length > 20 ? $product.description.slice(0, 20) + '...' : $product.description;
@@ -92,5 +103,20 @@
         $( document ).ready(function() {
             getProductsAndRender();
         });
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const menuItems = document.querySelectorAll('.menu-item');
+
+            menuItems.forEach(item => {
+                item.addEventListener('click', function () {
+                    // Remove 'color-active' class from all menu items
+                    menuItems.forEach(el => el.classList.remove('color-active'));
+                    
+                    // Add 'color-active' class to the clicked menu item
+                    this.classList.add('color-active');
+                });
+            });
+        });
+
     </script>
 {% endblock %}

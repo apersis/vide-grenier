@@ -39,7 +39,6 @@ class Articles extends Model {
 
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
-
     /**
      * ?
      * @access public
@@ -164,7 +163,27 @@ class Articles extends Model {
         $stmt->execute();
     }
 
-
-
-
+    public static function getAroundMe($userCity) {
+        $db = static::getDB();
+    
+        $latitude = $userCity['ville_latitude_deg'];
+        $longitude = $userCity['ville_longitude_deg'];
+        
+        $stmt = $db->prepare('
+            SELECT articles.*, articles.id as id, villes_france.ville_latitude_deg, villes_france.ville_longitude_deg,
+                   (6371 * acos(cos(radians(:latitude)) * cos(radians(villes_france.ville_latitude_deg)) * cos(radians(villes_france.ville_longitude_deg) - radians(:longitude)) + sin(radians(:latitude)) * sin(radians(villes_france.ville_latitude_deg)))) AS distance
+            FROM articles
+            INNER JOIN villes_france ON articles.fk_ville = villes_france.ville_id
+            WHERE articles.is_actif = 1
+            HAVING distance <= 50
+            ORDER BY distance
+        ');
+        $stmt->execute([
+            ':latitude' => $latitude,
+            ':longitude' => $longitude
+        ]);
+        
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+    
 }

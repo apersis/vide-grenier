@@ -29,6 +29,18 @@ class Api extends \Core\Controller
         echo json_encode($articles);
     }
 
+    public function AroundAction()
+    {
+        $email = \App\Utility\Cookie::get("mail"); 
+        $user = \App\Models\User::getByLogin($email);
+        $userCity = Cities::searchById($user['fk_ville']);
+
+        $articles = Articles::getAroundMe($userCity);
+
+        header('Content-Type: application/json');
+        echo json_encode($articles);
+    }
+
     /**
      * Recherche dans la liste des villes
      * Par query et si c'est une recherche par code postal ou par nom
