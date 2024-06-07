@@ -14,6 +14,6 @@ class Stats extends \Core\Controller
      */
     public function statsAction()
     {
-        View::renderTemplate('Stats/statistics.php');
+        View::renderTemplate('Stats/statistics.html');
     }
 }

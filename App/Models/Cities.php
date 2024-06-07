@@ -49,5 +49,16 @@ class Cities extends Model {
         return $stmt->fetchAll(\PDO::FETCH_DEFAULT);
     }
 
+    public static function getBestCity()
+    {
+        $db = static::getDB();
+
+        $stmt = $db->prepare("SELECT ville_nom_reel FROM videgrenierenligne.articles INNER JOIN villes_france on fk_ville = villes_france.ville_id GROUP BY ville_id ORDER BY count(*) desc limit 1;");
+
+        $stmt->execute();
+
+        return $stmt->fetch(\PDO::FETCH_ASSOC);
+    }
+
 
 }

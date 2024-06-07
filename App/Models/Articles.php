@@ -169,9 +169,9 @@ class Articles extends Model {
     {
         $db = static::getDB();
 
-        $stmt = $db->prepare('
+        $stmt = $db->prepare("
         SELECT 
-            DATE_FORMAT(creation_date, \'%Y-%m\') AS month,
+            DATE_FORMAT(published_date, '%Y-%m') AS month,
             COUNT(*) AS article_count
         FROM 
             articles
@@ -179,11 +179,45 @@ class Articles extends Model {
             month
         ORDER BY 
             month;
-        ');
+        ");
+
+        $stmt->execute();
+
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    public static function getNumberByActif()
+    {
+        $db = static::getDB();
+
+        $stmt = $db->prepare("
+        SELECT 
+            is_actif,
+            COUNT(*) AS article_count
+        FROM 
+            articles
+        GROUP BY 
+            is_actif
+        ORDER BY
+            is_actif;
+        ");
+
+        $stmt->execute();
+
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    public static function getBestArticle()
+    {
+        $db = static::getDB();
+
+        $stmt = $db->prepare("
+        SELECT name FROM articles ORDER BY views desc LIMIT 1;
+        ");
+        $stmt->execute();
 
         return $stmt->fetch(\PDO::FETCH_ASSOC);
     }
-
 
 
 
