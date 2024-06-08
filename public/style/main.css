@@ -2045,14 +2045,20 @@ footer .f-lang .btn-default {
 
 .login-wraper {
   position: relative;
+  /*
+  * Content Account END
+  */
 }
 .login-wraper .login-window {
-  position: absolute;
-  width: 570px;
+  position: relative;
+  width: auto;
   top: 50%;
-  left: 50%;
-  margin-left: -2px;
-  margin-top: -288px;
+}
+@media (min-width: 1300px) {
+  .login-wraper .login-window {
+    margin-left: 15%;
+    margin-right: 15%;
+  }
 }
 .login-wraper .login-window .l-head {
   background-color: #ffffff;
@@ -2086,82 +2092,82 @@ footer .f-lang .btn-default {
     padding-bottom: 12px;
   }
 }
-.login-wraper .checkbox {
+.login-wraper .login-window .checkbox {
   font-weight: normal;
 }
 @media only screen and (max-width: 767px) {
-  .login-wraper .checkbox {
+  .login-wraper .login-window .checkbox {
     margin-bottom: 30px;
   }
 }
-.login-wraper .checkbox p {
+.login-wraper .login-window .checkbox p {
   margin-bottom: 4px;
 }
-.login-wraper .checkbox .text2 {
+.login-wraper .login-window .checkbox .text2 {
   display: block;
   font-size: 14px;
   color: #7e7e7e;
 }
-.login-wraper .ortext {
+.login-wraper .login-window .ortext {
   padding-top: 25px;
   color: #7e7e7e;
 }
-.login-wraper .signuptext {
+.login-wraper .login-window .signuptext {
   padding-top: 25px;
   text-align: center;
   color: #343434;
   font-weight: 500;
 }
-.login-wraper .signuptext.text-right {
+.login-wraper .login-window .signuptext.text-right {
   text-align: right;
 }
-.login-wraper .forgottext {
+.login-wraper .login-window .forgottext {
   margin-top: 25px;
 }
-.login-wraper .forgottext a {
+.login-wraper .login-window .forgottext a {
   color: #7e7e7e;
 }
-.login-wraper .forgottext a:hover {
+.login-wraper .login-window .forgottext a:hover {
   text-decoration: underline;
 }
-
-.banner-text {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  margin-top: -50px;
-  margin-left: -580px;
-  width: 550px;
+.login-wraper .banner-text {
+  display: flex;
+  justify-content: center;
 }
-.banner-text .line {
+.login-wraper .banner-text .line {
   height: 1px;
   border-top: solid 1px #ea2c5a;
-  padding-bottom: 50px;
+  padding-bottom: 70px;
   width: 280px;
 }
-.banner-text .b-text {
+.login-wraper .banner-text .b-text {
   color: #ffffff;
   font-size: 80px;
-  text-align: left;
+  text-align: center;
   line-height: 80px;
+  color: #000000;
 }
-.banner-text .b-text .color-b1 {
+.login-wraper .banner-text .b-text .color-b1 {
   color: #b7135d;
 }
-.banner-text .b-text .color-b2 {
+.login-wraper .banner-text .b-text .color-b2 {
   color: #be154e;
 }
-.banner-text .b-text .color-b3 {
+.login-wraper .banner-text .b-text .color-b3 {
   color: #d71d52;
 }
-.banner-text .overtext {
+@media only screen and (min-width: 767px) {
+  .login-wraper .banner-text .b-text {
+    margin-top: 20px;
+  }
+}
+.login-wraper .banner-text .overtext {
   margin-top: 30px;
   color: #a1a1a1;
   text-align: left;
 }
-
 @media (min-width: 100px) and (max-width: 1365px) {
-  .banner-text {
+  .login-wraper .banner-text {
     position: relative;
     top: 0;
     left: 0;
@@ -2169,22 +2175,18 @@ footer .f-lang .btn-default {
     margin-left: 0;
     width: auto;
   }
-  .banner-text .line {
+  .login-wraper .banner-text .line {
     display: none;
   }
-  .banner-text .b-text {
+  .login-wraper .banner-text .b-text {
     color: #000000;
-    font-size: 30px;
     text-align: center;
-    line-height: 30px;
-    padding-top: 30px;
   }
-  .banner-text .overtext {
-    margin: 15px 0;
+  .login-wraper .banner-text .overtext {
     color: #a1a1a1;
     text-align: center;
   }
-  .login-wraper .login-window {
+  .login-wraper .login-wraper .login-window {
     position: relative;
     width: auto;
     top: 0;
@@ -2192,16 +2194,20 @@ footer .f-lang .btn-default {
     margin-left: 0;
     margin-top: 0;
   }
-  .login-wraper .login-window .l-head {
+  .login-wraper .login-wraper .login-window .l-head {
     padding: 20px 10px;
   }
-  .login-wraper .login-window .l-form {
+  .login-wraper .login-wraper .login-window .l-form {
+    text-align: left;
+    /*
+    background-color: #fefbfe;
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
     padding: 25px 20px;
+    */
   }
 }
-/*
-* Content Account END
-*/
+
 /*
 * Content Single Video
 */
@@ -2295,6 +2301,18 @@ footer .f-lang .btn-default {
 }
 .single-article .h-article.last-row {
   padding-bottom: 0px;
+}
+.single-article .info-content p {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+.single-article .preview-title a {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+.single-article .v-desc a {
+  white-space: pre-wrap;
+  word-wrap: break-word;
 }
 .single-article .content-wrapper {
   padding-top: 30px;
@@ -2864,6 +2882,21 @@ footer .f-lang .btn-default {
   margin-bottom: 7px;
 }
 
+.suppr-btn {
+  margin-top: 60px;
+  background-color: red;
+  color: white;
+  padding: 15px 65px;
+  border: solid 1px red;
+  height: 48px;
+  border-radius: 24px;
+  font-weight: 500;
+}
+.suppr-btn:hover {
+  color: red;
+  background-color: #ffffff;
+}
+
 .edit-page {
   text-align: left;
 }
@@ -2947,6 +2980,9 @@ footer .f-lang .btn-default {
   line-height: 8px;
   border-radius: 4px;
 }
+.edit-page .input-error {
+  border-color: red;
+}
 .edit-page .u-form label {
   color: #2e2e2e;
   font-weight: normal;
@@ -2957,7 +2993,8 @@ footer .f-lang .btn-default {
   }
 }
 .edit-page .u-form .form-control {
-  padding: 6px 12px;
+  padding: 10px;
+  background-color: #ffffff;
 }
 .edit-page .u-form .u-category {
   color: #2e2e2e !important;

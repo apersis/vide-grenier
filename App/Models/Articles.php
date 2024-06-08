@@ -22,7 +22,7 @@ class Articles extends Model {
     public static function getAll($filter) {
         $db = static::getDB();
 
-        $query = 'SELECT * FROM articles ';
+        $query = 'SELECT * FROM articles WHERE is_actif = 1';
 
         switch ($filter){
             case 'views':
@@ -50,12 +50,11 @@ class Articles extends Model {
         $db = static::getDB();
 
         $stmt = $db->prepare('
-            SELECT * FROM articles
-            INNER JOIN users ON articles.user_id = users.id
-            INNER JOIN villes_france ON articles.fk_ville = ville_id
-            WHERE articles.id = ? 
-            LIMIT 1');
-
+        SELECT * FROM articles
+        INNER JOIN users ON articles.user_id = users.id
+        INNER JOIN villes_france ON articles.fk_ville = ville_id
+        WHERE articles.id = ? AND is_actif = 1
+        LIMIT 1');
         $stmt->execute([$id]);
 
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
@@ -90,7 +89,7 @@ class Articles extends Model {
         $stmt = $db->prepare('
             SELECT *, articles.id as id FROM articles
             LEFT JOIN users ON articles.user_id = users.id
-            WHERE articles.user_id = ?');
+            WHERE articles.user_id = ? AND is_actif = 1');
 
         $stmt->execute([$id]);
 
@@ -109,6 +108,7 @@ class Articles extends Model {
         $stmt = $db->prepare('
             SELECT *, articles.id as id FROM articles
             INNER JOIN users ON articles.user_id = users.id
+            WHERE is_actif = 1
             ORDER BY published_date DESC LIMIT 10');
 
         $stmt->execute();
@@ -140,6 +140,16 @@ class Articles extends Model {
         $stmt->execute();
 
         return $db->lastInsertId();
+    }
+
+    public static function deleteOne($idPicture){
+        $db = static::getDB();
+
+        $stmt = $db->prepare('UPDATE articles SET is_actif = 0 WHERE articles.picture = :picture;');
+
+        $stmt->bindParam(':picture', $idPicture);
+
+        $stmt->execute();
     }
 
     public static function attachPicture($articleId, $pictureName){
