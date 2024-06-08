@@ -46,17 +46,14 @@ class User extends \Core\Controller
             $f = $_POST;
 
             if($f['password'] !== $f['password-check']){
-                // TODO: Gestion d'erreur côté utilisateur
+
+                $this->register($f);
+                $this->login($f);
+
             }
-
-            // validation
-
-            $this->register($f);
-            $this->login($f);
-
+            
             header('Location: /account');
         }
-
         View::renderTemplate('User/register.html');
     }
 
