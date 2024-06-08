@@ -1,4 +1,4 @@
-describe('example to-do app', () => {
+describe('Page Login', () => {
     beforeEach(() => {
       cy.visit('http://127.0.0.1:8000/login')
     })
