@@ -4,6 +4,7 @@ FROM php:8.2-apache
 RUN apt-get update && apt-get install -y --no-install-recommends \
     vim \
     git \
+    curl \
     && a2enmod rewrite \
     && service apache2 restart
 
