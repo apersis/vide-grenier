@@ -1932,6 +1932,10 @@ ul.menu ul li:not(:last-child) {
   margin-top: 20px;
   background-color: #eceff0;
 }
+.mobile-menu-login {
+  margin-top: 20px;
+  background-color: #ea2c5a;
+}
 
 /*
 * HEADER END
