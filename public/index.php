@@ -50,7 +50,5 @@ try {
         Core\View::renderTemplate('404.html');
     } elseif ($e->getMessage() == 'You must be logged in') {
         header('Location: /login');
-    } else {
-        Core\View::renderTemplate('500.html');
     }
 }
