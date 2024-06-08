@@ -40,11 +40,9 @@
                             </div>
                         </div>
                     </div>
-
-                    <div class="cb-content">
+<!--images-->
                         <div class="row" id="articlelist">
 
-                        </div>
                     </div>
                 </div>
             </div>
@@ -70,22 +68,25 @@
         }
 
         function renderProduct($product){
-             $('<div class="col-lg-4 col-sm-6 articleitem" id="article-pattern">' +
-                '                                <div class="b-article">' +
-                '                                    <div class="v-img">' +
-                '                                        <a href="/product/'+ $product.id + '">' +
-                '                                            <img src="/storage/'+ $product.picture +'" alt=""></a>' +
-                '                                    </div>' +
-                '                                    <div class="v-desc">' +
-                '                                        <a href="/product/'+ $product.id + '">'+ $product.name+'</a>' +
-                '                                    </div>' +
-                '                                    <p>'+ $product.description.slice(0, 20) + '...</p>' +
-                '                                    <div class="v-views">' +
-                '                                        '+$product.views+' vues' +
-                '                                    </div>' +
-                '                                </div>' +
+            var title = $product.name.length > 25 ? $product.name.slice(0, 25) + '...' : $product.name;
+            var description = $product.description.length > 20 ? $product.description.slice(0, 20) + '...' : $product.description;
+
+            $('<div class="col-lg-4 col-sm-6 articleitem" id="article-pattern">' +
+                '    <div class="b-article">' +
+                '        <div class="v-img">' +
+                '            <a href="/product/'+ $product.id + '">' +
+                '                <img src="/storage/'+ $product.picture +'" alt=""></a>' +
+                '        </div>' +
+                '        <div class="v-desc">' +
+                '            <a href="/product/'+ $product.id + '">'+ title +'</a>' +
+                '        </div>' +
+                '        <p>'+ description + '</p>' +
+                '        <div class="v-views">' +
+                '            '+$product.views+' vues' +
+                '        </div>' +
+                '    </div>' +
                 '</div>')
-             .appendTo($('#articlelist'));
+            .appendTo($('#articlelist'));
         }
 
         $( document ).ready(function() {
