@@ -166,14 +166,25 @@
   ).done(function (res) {
     nbrGifter.innerText = res.nombre;
   });
-  
+
 </script>
 
 
 {% else %}
 
-<h1>Page not found</h1>
-<p>Sorry, that page doesn't exist.</p>
+<div class="content-wrapper-error">
+        <div class="container-error">
+            <div class="error-image">
+                <img src="/images/cross.png" alt="Page non trouvée">
+            </div>
+            <div class="error-container">
+                <h1>404</h1>
+                <p>Désolé, cette page n'existe pas.</p>
+                <a href="/">Retour à l'accueil</a>
+
+            </div>
+        </div>
+    </div>
 
 {% endif %}
 
