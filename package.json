@@ -16,6 +16,7 @@
     "sass": "^1.75.0"
   },
   "devDependencies": {
-    "cypress": "^13.11.0"
+    "cypress": "^13.11.0",
+    "cypress-file-upload": "^5.0.8"
   }
 }
