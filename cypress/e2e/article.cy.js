@@ -1,10 +1,10 @@
-describe('Ajouter un article', () => {
+describe("cycle d'un article", () => {
     beforeEach(() => {
       cy.visit('http://127.0.0.1:8000/login')
     })
     
 
-    it("L'utilisateur se connecte et crée un article", () => {
+    it("L'utilisateur se connecte et crée un article, le trouve sur la page d'accueil", () => {
         const email = 'admin@test.fr'
         const passeword = 'admin'
     
@@ -34,6 +34,22 @@ describe('Ajouter un article', () => {
 
         cy.url().should('match', /http:\/\/127\.0\.0\.1:8000\/product\/\d+/)
 
+        const account = cy.get('button#dropdownMenu1.btn.btn-default.dropdown-toggle').eq(0)
+        account.click()
+
+        const accueil = cy.get('.navbar-brand').eq(0)
+        accueil.click()
+
+        cy.get('div#articlelist.row').contains(`testCypress`)
+        const retourAlArticle = cy.get('div#articlelist.row').contains(`cypress`)
+        retourAlArticle.click()
+
+        const supprimer = cy.get('input#buttonDelete.btn.btn-primary.suppr-btn').eq(0)
+        supprimer.click()
+
+        cy.url().should('eq', 'http://127.0.0.1:8000')
+
+        cy.get('div#articlelist.row').should('not.contain', 'cypress')
     })
 
 })
