@@ -21,7 +21,7 @@
                     Créer un compte
                 </div>
                 <div class="l-form">
-                    <form method="post" action="">
+                    <form name="registerForm" method="post" action="" onsubmit="validateForm(event)">
                         <div class="form-group">
                             <label for="username">Nom d'utilisateur</label>
                             <input type="text" class="form-control" id="username" name="username"
@@ -72,6 +72,20 @@
 
 {% block javascript %}
 <script type="text/javascript">
+
+    function validateForm(event) {
+        var password = document.forms["registerForm"]["password"].value;
+        var passwordCheck = document.forms["registerForm"]["password-check"].value;
+
+        if (password !== passwordCheck) {
+            event.preventDefault();
+
+            alert("Les mots de passe ne sont pas similaire.");
+            document.forms["registerForm"]["password-check"].value = "";
+
+        }
+    }
+    
     // Sélection de l'élément <select>
     var selectElement = document.getElementById('villeInput');
 
