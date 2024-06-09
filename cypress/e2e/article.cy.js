@@ -47,7 +47,7 @@ describe("cycle d'un article", () => {
         const supprimer = cy.get('input#buttonDelete.btn.btn-primary.suppr-btn').eq(0)
         supprimer.click()
 
-        cy.url().should('eq', 'videgrenier/')
+        cy.url().should('eq', 'http://videgrenier/')
 
         cy.get('div#articlelist.row').should('not.contain', 'cypress')
     })
