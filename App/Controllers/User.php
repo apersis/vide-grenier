@@ -45,7 +45,7 @@ class User extends \Core\Controller
         if(isset($_POST['submit'])){
             $f = $_POST;
 
-            if($f['password'] !== $f['password-check']){
+            if($f['password'] == $f['password-check']){
 
                 $this->register($f);
                 $this->login($f);
