@@ -22,7 +22,7 @@ class Articles extends Model {
     public static function getAll($filter) {
         $db = static::getDB();
 
-        $query = 'SELECT * FROM articles ';
+        $query = 'SELECT * FROM articles WHERE is_actif = 1';
 
         switch ($filter){
             case 'views':
@@ -34,12 +34,29 @@ class Articles extends Model {
             case '':
                 break;
         }
-
         $stmt = $db->query($query);
-
+        
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
+    public static function getAround($longitude, $latitude){
+        $db = static::getDB();
+        $stmt = $db->prepare( ' SELECT articles.*, articles.id as id, villes_france.ville_latitude_deg, villes_france.ville_longitude_deg, villes_france.ville_nom_reel,
+                        (6371 * acos(cos(radians(:latitude)) * cos(radians(villes_france.ville_latitude_deg)) * cos(radians(villes_france.ville_longitude_deg) - radians(:longitude)) + sin(radians(:latitude)) * sin(radians(villes_france.ville_latitude_deg)))) AS distance
+                    FROM articles
+                    INNER JOIN villes_france ON articles.fk_ville = villes_france.ville_id
+                    WHERE articles.is_actif = 1
+                    ORDER BY distance');
+
+            $stmt->bindParam(':longitude', $longitude);
+            $stmt->bindParam(':latitude', $latitude);
+
+            $stmt->execute();
+
+            return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    
     /**
      * ?
      * @access public
@@ -53,7 +70,7 @@ class Articles extends Model {
         SELECT * FROM articles
         INNER JOIN users ON articles.user_id = users.id
         INNER JOIN villes_france ON articles.fk_ville = ville_id
-        WHERE articles.id = ? 
+        WHERE articles.id = ? AND is_actif = 1
         LIMIT 1');
         $stmt->execute([$id]);
 
@@ -89,7 +106,7 @@ class Articles extends Model {
         $stmt = $db->prepare('
             SELECT *, articles.id as id FROM articles
             LEFT JOIN users ON articles.user_id = users.id
-            WHERE articles.user_id = ?');
+            WHERE articles.user_id = ? AND is_actif = 1');
 
         $stmt->execute([$id]);
 
@@ -108,6 +125,7 @@ class Articles extends Model {
         $stmt = $db->prepare('
             SELECT *, articles.id as id FROM articles
             INNER JOIN users ON articles.user_id = users.id
+            WHERE is_actif = 1
             ORDER BY published_date DESC LIMIT 10');
 
         $stmt->execute();
@@ -141,6 +159,16 @@ class Articles extends Model {
         return $db->lastInsertId();
     }
 
+    public static function deleteOne($idPicture){
+        $db = static::getDB();
+
+        $stmt = $db->prepare('UPDATE articles SET is_actif = 0 WHERE articles.picture = :picture;');
+
+        $stmt->bindParam(':picture', $idPicture);
+
+        $stmt->execute();
+    }
+
     public static function attachPicture($articleId, $pictureName){
         $db = static::getDB();
 
@@ -151,9 +179,5 @@ class Articles extends Model {
 
 
         $stmt->execute();
-    }
-
-
-
-
+    }     
 }

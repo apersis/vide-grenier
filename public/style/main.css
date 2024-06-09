@@ -1948,6 +1948,10 @@ ul.menu ul li:not(:last-child) {
   margin-top: 20px;
   background-color: #eceff0;
 }
+.mobile-menu-login {
+  margin-top: 20px;
+  background-color: #ea2c5a;
+}
 
 /*
 * HEADER END
@@ -2910,6 +2914,21 @@ footer .f-lang .btn-default {
   margin-bottom: 7px;
 }
 
+.suppr-btn {
+  margin-top: 60px;
+  background-color: red;
+  color: white;
+  padding: 15px 65px;
+  border: solid 1px red;
+  height: 48px;
+  border-radius: 24px;
+  font-weight: 500;
+}
+.suppr-btn:hover {
+  color: red;
+  background-color: #ffffff;
+}
+
 .edit-page {
   text-align: left;
 }
@@ -3066,5 +3085,53 @@ footer .f-lang .btn-default {
 /*
 * Content Upload END
 */
+.content-wrapper-error {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  text-align: center;
+}
+
+.container-error {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 50px;
+}
+
+.error-container h1 {
+  font-size: 96px;
+  margin-bottom: 10px;
+}
+
+.error-container p {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.error-container a {
+  display: inline-block;
+  padding: 15px 30px;
+  background-color: #007bff;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 18px;
+  transition: background-color 0.3s;
+}
+
+.error-container a:hover {
+  background-color: #0056b3;
+}
+
+.error-image {
+  margin-top: 30px;
+}
+
+.error-image img {
+  width: 20%;
+  height: auto;
+}
 
 /*# sourceMappingURL=main.css.map */

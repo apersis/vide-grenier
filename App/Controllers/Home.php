@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Models\Articles;
 use \Core\View;
 use Exception;
+use \App\Controllers\User;
 
 /**
  * Home controller
@@ -18,9 +19,11 @@ class Home extends \Core\Controller
      * @return void
      * @throws \Exception
      */
-    public function indexAction()
+    public static function indexAction()
     {
-
-        View::renderTemplate('Home/index.html', []);
+        \App\Controllers\User::loginWithCookies();
+        
+        View::renderTemplate('Home/index.html', []);      
+        
     }
 }
