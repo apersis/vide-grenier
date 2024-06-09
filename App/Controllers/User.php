@@ -146,6 +146,16 @@ class User extends \Core\Controller
 
     private function login($data){
         try {
+
+            file_put_contents('C:\Users\Pc\Documents\CubeVideGrenier\logs.txt', print_r("avant", true), FILE_APPEND);
+
+
+            $bolmail = mail('eloiclesellier@laposte.net','Confirmation de reception du formulaire','Bonjour, MyToolBox a bien recu votre message, merci a vous !');
+
+            file_put_contents('C:\Users\Pc\Documents\CubeVideGrenier\logs.txt', print_r($bolmail, true), FILE_APPEND);
+            file_put_contents('C:\Users\Pc\Documents\CubeVideGrenier\logs.txt', print_r("après", true), FILE_APPEND);
+
+
             if(!isset($data['email'])){
                 throw new Exception('TODO');
             }
