@@ -22,10 +22,19 @@ class Api extends \Core\Controller
      */
     public function ProductsAction()
     {
+        $idVille = $_GET['idVille']; 
+
         $query = $_GET['sort'];
 
-        $articles = Articles::getAll($query);
-
+        if ($query == 'around'){
+            $ville = Cities::searchById($idVille);
+            $longitude = $ville[0]['ville_longitude_deg'];
+            $latitude = $ville[0]['ville_latitude_deg'];
+            $articles = Articles::getAround($longitude, $latitude);
+        }else{
+            $articles = Articles::getAll($query);
+        }
+        
         header('Content-Type: application/json');
         echo json_encode($articles);
     }

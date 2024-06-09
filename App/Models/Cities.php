@@ -35,7 +35,7 @@ class Cities extends Model {
         $db = static::getDB();
 
         if ($id != null){ 
-            $stmt = $db->prepare('SELECT ville_id, ville_nom_reel, ville_code_postal FROM villes_france WHERE ville_id LIKE :query');
+            $stmt = $db->prepare('SELECT ville_id, ville_nom_reel, ville_code_postal, ville_longitude_deg, ville_latitude_deg FROM villes_france WHERE ville_id LIKE :query');
         }else {
             return false;
         }
