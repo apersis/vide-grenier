@@ -51,13 +51,17 @@ class User extends \Core\Controller
             if($nbrSameEmail == 0){
                 if($f['password'] == $f['password-check']){
 
-                    $this->register($f);
-                    $this->login($f);
-    
+                    $isRegistered = $this->register($f);
+
+                    if($isRegistered != 0){
+                        
+                        $this->login($f);
+                        
+                        header('Location: /account');
+
+                    }
                 }
             }           
-            
-            header('Location: /account');
         }
         View::renderTemplate('User/register.html');
     }
