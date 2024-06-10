@@ -1,0 +1,192 @@
+{% extends "base.html" %}
+
+{% block title %}Statistiques{% endblock %}
+
+{% block body %}
+{% if user.is_admin == 1 %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<div class="container my-5">
+    <h2 class="text-center mb-5">Statistiques</h2>
+    
+    <div class="bg-light p-5 rounded shadow">
+        <div>
+          <div class="TextStatLine">
+            <div class="TextStat">
+              <p>Utilisateur le plus genereux : </p>
+              <p class="TextStatData" id="bestUser"></p>
+            </div>
+            <div class="TextStat">
+              <p>Ville où le plus d'objets sont données : </p>
+              <p class="TextStatData" id="bestCity"></p>
+            </div>
+          </div>
+          <div class="TextStatLine">
+            <div class="TextStat" >
+              <p>Article le plus vu de tous les temps : </p>
+              <p class="TextStatData" id="bestProduct"></p>
+            </div>
+            <div class="TextStat" >
+              <p>Nombre d'utilisateur total : </p>
+              <p class="TextStatData" id="nbrUser"></p>
+            </div>
+            <div class="TextStat" >
+              <p>Nombre de donneurs : </p>
+              <p class="TextStatData" id="nbrGifter"></p>
+            </div>
+          </div>
+          <div class="Graphs">
+            <div class="GraphLineCase">
+              <canvas id="graphique" style="margin-right: 50px;"></canvas>
+            </div>
+            <div class="GraphPieCase">
+              <canvas id="camembert"></canvas>
+            </div>
+          </div>
+        </div>
+    </div>
+</div>
+
+<script>
+  
+  const graphique = document.getElementById('graphique');
+  const camembert = document.getElementById('camembert');
+  const bestUser = document.getElementById('bestUser');
+  const bestCity = document.getElementById('bestCity');
+  const bestArticle = document.getElementById('bestProduct');
+  const nbrUser = document.getElementById('nbrUser');
+  const nbrGifter = document.getElementById('nbrGifter');
+
+
+  $months = [];
+  $articleCountsMonths = [];
+
+  $is_actif = [];
+  $articleCountsActif = [];
+
+  $.ajax(
+      '/api/getNumberByMounth',
+      {
+          data: {}
+      }
+  ).done(function (res) {
+      $months = res.map(item => item.month);
+      $articleCountsMonths = res.map(item => item.article_count);
+
+      new Chart(graphique, {
+        type: 'line',
+        data: {
+          labels: $months,
+          datasets: [{
+            label: 'Nombre d\'articles postés par mois',
+            data: $articleCountsMonths,
+            borderWidth: 1
+          }]
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true
+            }
+          },
+          responsive: true,
+          maintainAspectRatio: false
+        }
+      });
+  });
+
+  $.ajax(
+      '/api/getNumberByActif',
+      {
+          data: {}
+      }
+  ).done(function (res) {
+
+      $articleCountsActif = res.map(item => item.article_count);
+
+      new Chart(camembert, {
+      type: 'pie',
+      data: {
+        labels: ["Supprimés","En ligne"],
+        datasets: [{
+          label: 'My First Dataset',
+          data: $articleCountsActif,
+          backgroundColor: ['rgb(255, 99, 132)','rgb(75, 192, 192)']
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false
+      }
+    });
+  });
+
+  $.ajax(
+      '/api/getBestUser',
+      {
+          data: {}
+      }
+  ).done(function (res) {
+    bestUser.innerText = res.username;
+  });
+
+  $.ajax(
+      '/api/getBestCity',
+      {
+          data: {}
+      }
+  ).done(function (res) {
+    bestCity.innerText = res.ville_nom_reel;
+  });
+
+  $.ajax(
+      '/api/getBestArticle',
+      {
+          data: {}
+      }
+  ).done(function (res) {
+    bestArticle.innerText = res.name;
+  });
+
+  $.ajax(
+      '/api/getNbrUser',
+      {
+          data: {}
+      }
+  ).done(function (res) {
+    nbrUser.innerText = res.nombre;
+  });
+
+  $.ajax(
+      '/api/getNbrGifter',
+      {
+          data: {}
+      }
+  ).done(function (res) {
+    nbrGifter.innerText = res.nombre;
+  });
+
+</script>
+
+
+{% else %}
+
+<div class="content-wrapper-error">
+        <div class="container-error">
+            <div class="error-image">
+                <img src="/images/cross.png" alt="Page non trouvée">
+            </div>
+            <div class="error-container">
+                <h1>404</h1>
+                <p>Désolé, cette page n'existe pas.</p>
+                <a href="/">Retour à l'accueil</a>
+
+            </div>
+        </div>
+    </div>
+
+{% endif %}
+
+{% endblock %}
+  
