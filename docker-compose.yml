@@ -9,7 +9,7 @@ services:
       - ./:/var/www
     build:
       context: .
-      dockerfile: DockerFile 
+      dockerfile: Dockerfile 
     depends_on:
       - composer
 

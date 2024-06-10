@@ -35,7 +35,7 @@ class Cities extends Model {
         $db = static::getDB();
 
         if ($id != null){ 
-            $stmt = $db->prepare('SELECT ville_id, ville_nom_reel, ville_code_postal FROM villes_france WHERE ville_id LIKE :query');
+            $stmt = $db->prepare('SELECT ville_id, ville_nom_reel, ville_code_postal, ville_longitude_deg, ville_latitude_deg FROM villes_france WHERE ville_id LIKE :query');
         }else {
             return false;
         }
@@ -47,6 +47,17 @@ class Cities extends Model {
         $stmt->execute();
 
         return $stmt->fetchAll(\PDO::FETCH_DEFAULT);
+    }
+
+    public static function getBestCity()
+    {
+        $db = static::getDB();
+
+        $stmt = $db->prepare("SELECT ville_nom_reel FROM videgrenierenligne.articles INNER JOIN villes_france on fk_ville = villes_france.ville_id GROUP BY ville_id ORDER BY count(*) desc limit 1;");
+
+        $stmt->execute();
+
+        return $stmt->fetch(\PDO::FETCH_ASSOC);
     }
 
 
