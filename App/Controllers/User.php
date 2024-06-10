@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Config;
 use App\Model\UserRegister;
 use App\Models\Articles;
+use App\Models\User as ModelsUser;
 use App\Utility\Hash;
 use App\Utility\Session;
 use \Core\View;
@@ -44,15 +45,23 @@ class User extends \Core\Controller
     {
         if(isset($_POST['submit'])){
             $f = $_POST;
-
-            if($f['password'] == $f['password-check']){
-
-                $this->register($f);
-                $this->login($f);
-
-            }
             
-            header('Location: /account');
+            $nbrSameEmail = ModelsUser::getByLogin($f['email']);
+
+            if($nbrSameEmail == 0){
+                if($f['password'] == $f['password-check']){
+
+                    $isRegistered = $this->register($f);
+
+                    if($isRegistered != 0){
+                        
+                        $this->login($f);
+                        
+                        header('Location: /account');
+
+                    }
+                }
+            }           
         }
         View::renderTemplate('User/register.html');
     }
