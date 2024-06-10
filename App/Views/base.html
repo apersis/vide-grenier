@@ -116,14 +116,12 @@
                         <p>Accueil</p>
                     </a>
                 </li>
-                {% if user is not null %}
                 <li>
                     <a href="/account">
                         <i class="cv cvicon-cv-play-circle"></i>
                         <p>Mon compte</p>
                     </a>
                 </li>
-                {% endif %}
                 {% if user.is_admin == 1 %}
                 <li>
                     <a href="/stats">
@@ -137,8 +135,7 @@
         {% if user is not null %}
         <a href="/logout" class="btn mobile-menu-logout">Déconnexion</a>
         {% else %}
-        <a href="/login" class="btn mobile-menu-login">Connexion</a>
-        <a href="/register" class="btn mobile-menu-login">Inscription</a>
+        <a href="/register" class="btn mobile-menu-login">Connexion</a>
         {%endif %}
 
     </div>
@@ -162,10 +159,11 @@
                             <ul class="list-inline">
                                 <li><a href="/cookie">Politique relative aux cookies</a></li>
                                 <li><a href="/privacy">Politique de confidentialité</a></li>
-                                <li>Copyright 2024 <a href="https://fr.wikipedia.org/wiki/Années_2000" target="_blank" class="hidden-xs">Team 2000</a></li>
+                                <li>Copyright 2024 <a href="https://www.cesi.fr" target="_blank" class="hidden-xs">CESI</a></li>
                             </ul>
                         </div>
                     </div>
+
                 </div>
         </div>
     </footer>

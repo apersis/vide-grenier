@@ -24,9 +24,15 @@ body.ovf--hidden {
 
 ul.menu {
   position: relative;
-  margin-bottom: 0;
+  margin-bottom: 25px;
   z-index: 10;
   margin-top: 25px;
+  @media only screen and (min-width: 1300px) {
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    @include display-flex();
+  }
   li {
     &:hover ul {
       display: block;
@@ -205,6 +211,9 @@ ul.menu {
   .btn-default {
     background-color: transparent;
     border: none;
+    @media only screen and (min-width: 767px) and (max-width: 1300px) {
+      margin-top: -70px;
+    }
   }
   .btn .caret {
     margin-left: 5px;
@@ -213,13 +222,19 @@ ul.menu {
 
 .loginsignup {
   text-align: right;
-  margin-top: 25px;
+  margin-top: -50px;
+
+  @media only screen and (min-width: 1300px) {
+    margin-top: 25px;
+  }
   a {
     color: $c-icon;
     &:hover {
       text-decoration: underline;
     }
   }
+
+
 
 }
 
@@ -232,15 +247,15 @@ ul.menu {
     @include display-flex();
   }
   span {
-    @media only screen and (min-width: 768px) {
-      display: none;
-    }
     @media only screen and (max-width: 767px) {
       margin-left: 10px;
       margin-top: 4px;
       font-size: 20px;
       color: #ea2c5a;
       font-weight: bold;
+    }
+    @media only screen and (min-width: 767px) {
+      display: none;
     }
   }
 }
@@ -602,7 +617,6 @@ ul.menu {
   &-login {
     margin-top: 20px;
     background-color: #ea2c5a;
-    color : white;
   }
 }
 /*

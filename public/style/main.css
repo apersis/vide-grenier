@@ -1411,9 +1411,20 @@ body.ovf--hidden {
 
 ul.menu {
   position: relative;
-  margin-bottom: 0;
+  margin-bottom: 25px;
   z-index: 10;
   margin-top: 25px;
+}
+@media only screen and (min-width: 1300px) {
+  ul.menu {
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+  }
 }
 ul.menu li:hover ul {
   display: block;
@@ -1590,13 +1601,23 @@ ul.menu ul li:not(:last-child) {
   background-color: transparent;
   border: none;
 }
+@media only screen and (min-width: 767px) and (max-width: 1300px) {
+  .selectuser .btn-default {
+    margin-top: -70px;
+  }
+}
 .selectuser .btn .caret {
   margin-left: 5px;
 }
 
 .loginsignup {
   text-align: right;
-  margin-top: 25px;
+  margin-top: -50px;
+}
+@media only screen and (min-width: 1300px) {
+  .loginsignup {
+    margin-top: 25px;
+  }
 }
 .loginsignup a {
   color: #637076;
@@ -1619,11 +1640,6 @@ ul.menu ul li:not(:last-child) {
     display: flex;
   }
 }
-@media only screen and (min-width: 768px) {
-  .navbar-brand span {
-    display: none;
-  }
-}
 @media only screen and (max-width: 767px) {
   .navbar-brand span {
     margin-left: 10px;
@@ -1631,6 +1647,11 @@ ul.menu ul li:not(:last-child) {
     font-size: 20px;
     color: #ea2c5a;
     font-weight: bold;
+  }
+}
+@media only screen and (min-width: 767px) {
+  .navbar-brand span {
+    display: none;
   }
 }
 
@@ -1995,7 +2016,6 @@ ul.menu ul li:not(:last-child) {
 .mobile-menu-login {
   margin-top: 20px;
   background-color: #ea2c5a;
-  color: white;
 }
 
 /*
@@ -2026,8 +2046,20 @@ footer .row .padding-def {
   }
 }
 footer .list-inline {
-  margin: 0;
   padding: 0;
+  margin-left: 100px;
+  margin-top: -40px;
+}
+@media only screen and (max-width: 767px) {
+  footer .list-inline {
+    margin-left: 0px;
+    margin-top: 0px;
+  }
+}
+@media only screen and (min-width: 768px) {
+  footer .list-inline {
+    margin-top: 20px;
+  }
 }
 @media only screen and (max-width: 767px) {
   footer .list-inline li a {
