@@ -188,6 +188,66 @@ a.active {
   background-color: #ffffff;
 }
 
+.TextStatLine {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 5%;
+}
+
+.TextStat {
+  width: 25%;
+  padding: 10px;
+  border: 1px solid black;
+  font-size: 15px;
+  overflow: hidden;
+}
+
+.TextStatData {
+  font-weight: bold;
+  font-size: 20px;
+  margin-left: 10%;
+  margin-bottom: 0;
+}
+
+.Graphs {
+  height: 100%;
+  display: flex;
+}
+
+.GraphLineCase {
+  height: 400px;
+  width: 70%;
+}
+
+.GraphPieCase {
+  height: 400px;
+}
+
+@media screen and (max-width: 900px) {
+  .Graphs {
+    justify-content: centerS;
+    display: block;
+  }
+  .GraphLineCase {
+    margin-bottom: 5%;
+    width: 100%;
+  }
+}
+@media screen and (max-width: 600px) {
+  .TextStatLine {
+    display: block;
+    margin-bottom: 5%;
+    align-items: center;
+  }
+  .TextStat {
+    width: 50%;
+    padding: 10px;
+    border: 1px solid black;
+    font-size: 15px;
+    overflow: hidden;
+    margin: 5%;
+  }
+}
 /*
 * General Styles END
 */
@@ -3057,5 +3117,53 @@ footer .f-lang .btn-default {
 /*
 * Content Upload END
 */
+.content-wrapper-error {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  text-align: center;
+}
+
+.container-error {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 50px;
+}
+
+.error-container h1 {
+  font-size: 96px;
+  margin-bottom: 10px;
+}
+
+.error-container p {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.error-container a {
+  display: inline-block;
+  padding: 15px 30px;
+  background-color: #007bff;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 18px;
+  transition: background-color 0.3s;
+}
+
+.error-container a:hover {
+  background-color: #0056b3;
+}
+
+.error-image {
+  margin-top: 30px;
+}
+
+.error-image img {
+  width: 20%;
+  height: auto;
+}
 
 /*# sourceMappingURL=main.css.map */

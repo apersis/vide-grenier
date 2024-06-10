@@ -37,6 +37,7 @@ $router->add('product', ['controller' => 'Product', 'action' => 'index', 'privat
 $router->add('product/{id:\d+}', ['controller' => 'Product', 'action' => 'show']);
 $router->add('privacy', ['controller' => 'Policy', 'action' => 'privacy']);
 $router->add('cookie', ['controller' => 'Policy', 'action' => 'cookie']);
+$router->add('stats', ['controller' => 'Stats', 'action' => 'stats', 'private' => true]);
 
 $router->add('{controller}/{action}');
 
@@ -45,10 +46,10 @@ $router->add('{controller}/{action}');
  */
 try {
     $router->dispatch($_SERVER['QUERY_STRING']);
-} catch(Exception $e){
-    switch($e->getMessage()){
-        case 'You must be logged in':
-            header('Location: /login');
-            break;
+} catch (Exception $e) {
+    if ($e->getCode() == 404) {
+        Core\View::renderTemplate('404.html');
+    } elseif ($e->getMessage() == 'You must be logged in') {
+        header('Location: /login');
     }
 }
