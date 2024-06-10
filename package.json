@@ -1,9 +1,10 @@
 {
   "name": "grenier-en-ligne",
-  "version": "1.0.0",
+  "version": "1.3.0",
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "watch": "sass --watch style:public/style",
     "test": "echo \"Error: no test specified\" && exit 1",
     "compile-css": "sass style/main.scss public/style/main.css",
@@ -13,5 +14,9 @@
   "license": "ISC",
   "dependencies": {
     "sass": "^1.75.0"
+  },
+  "devDependencies": {
+    "cypress": "^13.11.0",
+    "cypress-file-upload": "^5.0.8"
   }
 }

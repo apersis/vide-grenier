@@ -13,8 +13,9 @@
                             src="{{ ('/storage/' ~ article.picture) }}"/>
 
                 </div>
-                <h1><a href="#">{{article.name}}</a></h1>
-
+                <div class="preview-title">
+                    <h1><a href="#">{{article.name}}</a></h1>
+                </div>
 
                 <div class="author">
                     <div class="author-head">
@@ -33,14 +34,19 @@
                 </div>
                 <div class="info">
                     <div class="info-content">
+                        <h4>Ville:</h4>
+                        <p>{{article.ville_nom_reel}}</p>
                         <h4>Description:</h4>
                         <p>{{article.description}}</p>
                     </div>
                     <div class="u-area mt-small">
-
-                    <a name="submit" href="mailto:{{article.email}}" class="btn btn-primary u-btn">Contacter {{article
-                        .username}}</a>
-
+                        
+                    {% if user.is_admin == 1 or article.email == user.email %}
+                        <input id="buttonDelete" type="button" name="delete" class="btn btn-primary suppr-btn" value="Supprimer l'article"/>
+                    {% else %}
+                        <a name="submit" href="mailto:{{article.email}}" class="btn btn-primary u-btn">Contacter {{article.username}}</a>
+                    {% endif %}
+                    
                     </div>
                 </div>
             </div>
@@ -72,3 +78,33 @@
 </div>
 
 {% endblock body %}
+
+{% block javascript %}
+
+<script type="text/javascript">
+
+    var boutonSupprimer = null;
+    if (document.getElementById("buttonDelete")) {
+        boutonSupprimer = document.getElementById("buttonDelete");
+        boutonSupprimer.addEventListener("click", updateBtn);
+    }
+    
+    
+
+    function updateBtn() {
+        if (confirm('Etes-vous sur de vouloir supprimer cet article ?')) {
+            $.ajax(
+                '/api/DeleteArticle',
+                {
+                    data: { 'id':'{{article.picture}}'}
+                }
+            );
+            setTimeout(function() {
+                document.location.href="/";
+            }, 10); 
+        }
+    }
+
+</script>
+
+{% endblock %}

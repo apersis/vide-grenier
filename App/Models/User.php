@@ -63,5 +63,39 @@ class User extends Model {
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
+    public static function getBestUser()
+    {
+        $db = static::getDB();
+
+        $stmt = $db->prepare("SELECT username FROM videgrenierenligne.articles INNER JOIN users on user_id = users.id GROUP BY user_id ORDER BY count(*) desc limit 1;");
+
+        $stmt->execute();
+
+        return $stmt->fetch(\PDO::FETCH_ASSOC);
+    }
+
+    public static function getNbrUser()
+    {
+        $db = static::getDB();
+
+        $stmt = $db->prepare("SELECT count(*) as nombre FROM users;");
+
+        $stmt->execute();
+
+        return $stmt->fetch(\PDO::FETCH_ASSOC);
+    }
+    
+    public static function getNbrGifter()
+    {
+        $db = static::getDB();
+
+        $stmt = $db->prepare("SELECT COUNT(DISTINCT users.id) as nombre
+        FROM users
+        JOIN articles ON users.id = articles.user_id;");
+
+        $stmt->execute();
+
+        return $stmt->fetch(\PDO::FETCH_ASSOC);
+    }
 
 }

@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Config;
 use App\Model\UserRegister;
 use App\Models\Articles;
+use App\Models\User as ModelsUser;
 use App\Utility\Hash;
 use App\Utility\Session;
 use \Core\View;
@@ -44,17 +45,24 @@ class User extends \Core\Controller
     {
         if(isset($_POST['submit'])){
             $f = $_POST;
+            
+            $nbrSameEmail = ModelsUser::getByLogin($f['email']);
 
-            if($f['password'] !== $f['password-check']){
-                // TODO: Gestion d'erreur côté utilisateur
-            }
+            if($nbrSameEmail == 0){
+                if($f['password'] == $f['password-check']){
 
-            // validation
+                    $isRegistered = $this->register($f);
 
-            $this->register($f);
-            // TODO: Rappeler la fonction de login pour connecter l'utilisateur
+                    if($isRegistered != 0){
+                        
+                        $this->login($f);
+                        
+                        header('Location: /account');
+
+                    }
+                }
+            }           
         }
-
         View::renderTemplate('User/register.html');
     }
 
@@ -97,6 +105,51 @@ class User extends \Core\Controller
         }
     }
 
+    public static function loginWithCookies(){
+        
+        // Verification de si il existe des cookies "se souvenir de moi"
+        $cookieMailExist = \App\Utility\Cookie::exists("mail"); 
+        $cookieMdpExist = \App\Utility\Cookie::exists("Hpassword");
+
+        // Verification de si un utilisateur est deja connecté
+        if (empty($_SESSION)){
+            $isSessionConnecte = 0;
+        }else{
+            $isSessionConnecte = 1;
+        }
+
+        if ($cookieMailExist && $cookieMdpExist && $isSessionConnecte == 0) {
+
+            $email = \App\Utility\Cookie::get("mail"); 
+            $password = \App\Utility\Cookie::get("Hpassword");
+
+            $user = \App\Models\User::getByLogin($email);
+
+            if ($password !== $user['password']) {
+                return false;
+            }
+
+            $usercity = \App\Models\Cities::searchById($user['fk_ville']);
+
+            $_SESSION['user'] = array(
+                'id' => $user['id'],
+                'username' => $user['username'],
+                'is_admin' => $user['is_admin'],
+                'email' => $email,
+                'city_id' => $usercity[0]['ville_id'],
+                'city_name' => $usercity[0]['ville_nom_reel'],
+                'city_code' => $usercity[0]['ville_code_postal'],
+            );
+
+            return true;
+
+        }else{
+            
+            return true;
+
+        }
+    }
+
     private function login($data){
         try {
             if(!isset($data['email'])){
@@ -108,14 +161,25 @@ class User extends \Core\Controller
             if (Hash::generate($data['password'], $user['salt']) !== $user['password']) {
                 return false;
             }
+            
+            // Si le bouton "se souvenir de moi" est coché, créer un cookie
+            $remember = array_key_exists('#', $data);
+    
+            if ($remember) {
+                \App\Utility\Cookie::put("mail", $data['email'] , 3600*24*365);
+                \App\Utility\Cookie::put("Hpassword", $user['password'], 3600*24*365);
+            }
 
-            // TODO: Create a remember me cookie if the user has selected the option
-            // to remained logged in on the login form.
-            // https://github.com/andrewdyer/php-mvc-register-login/blob/development/www/app/Model/UserLogin.php#L86
+            $usercity = \App\Models\Cities::searchById($user['fk_ville']);
 
             $_SESSION['user'] = array(
                 'id' => $user['id'],
                 'username' => $user['username'],
+                'is_admin' => $user['is_admin'],
+                'email' => $data['email'],
+                'city_id' => $usercity[0]['ville_id'],
+                'city_name' => $usercity[0]['ville_nom_reel'],
+                'city_code' => $usercity[0]['ville_code_postal'],
             );
 
             return true;
@@ -126,6 +190,21 @@ class User extends \Core\Controller
         }
     }
 
+    public static function createRememberCookie($userID) {
+        $Db = Utility\Database::getInstance();
+        $check = $Db->select("user_cookies", ["user_id", "=", $userID]);
+        if ($check->count()) {
+            $hash = $check->first()->hash;
+        } else {
+            $hash = Utility\Hash::generateUnique();
+            if (!$Db->insert("user_cookies", ["user_id" => $userID, "hash" => $hash])) {
+                return false;
+            }
+        }
+        $cookie = Utility\Config::get("COOKIE_USER");
+        $expiry = Utility\Config::get("COOKIE_DEFAULT_EXPIRY");
+        return(Utility\Cookie::put($cookie, $hash, $expiry));
+    }
 
     /**
      * Logout: Delete cookie and session. Returns true if everything is okay,
@@ -136,12 +215,18 @@ class User extends \Core\Controller
      */
     public function logoutAction() {
 
-        /*
-        if (isset($_COOKIE[$cookie])){
-            // TODO: Delete the users remember me cookie if one has been stored.
-            // https://github.com/andrewdyer/php-mvc-register-login/blob/development/www/app/Model/UserLogin.php#L148
-        }*/
-        // Destroy all data registered to the session.
+        // Check if a remember me cookie exists.
+        $cookieMailExist = \App\Utility\Cookie::exists("mail");
+
+        if ($cookieMailExist) {
+            \App\Utility\Cookie::delete("mail");
+        }
+
+        $cookiePasswordExist = \App\Utility\Cookie::exists("Hpassword");
+
+        if ($cookiePasswordExist) {
+            \App\Utility\Cookie::delete("Hpassword");
+        }
 
         $_SESSION = array();
 

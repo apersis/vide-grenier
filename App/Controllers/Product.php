@@ -16,6 +16,13 @@ class Product extends \Core\Controller
      * Affiche la page d'ajout
      * @return void
      */
+
+    /*
+    *TLR : issue #19 -> image volumineuse
+    *Fonction qui vérifié la taille, l'extension et s'il y a un nom de l'image dans le champs 
+    *avant la création de la page du produit + ajout de message
+    */
+    
     public function indexAction()
     {
 
@@ -42,10 +49,12 @@ class Product extends \Core\Controller
         View::renderTemplate('Product/Add.html');
     }
 
-    /**
+
+    /*
+        /**
      * Affiche la page d'un produit
      * @return void
-     */
+    */
     public function showAction()
     {
         $id = $this->route_params['id'];
@@ -63,4 +72,5 @@ class Product extends \Core\Controller
             'suggestions' => $suggestions
         ]);
     }
+    
 }
