@@ -41,7 +41,7 @@
                     </div>
                     <div class="col-lg-3 col-sm-10 hidden-xs">
                         <ul class="list-inline menu">
-                            <li class="color-active"><a href="/product">Déposer une annonce</a></li>
+                            <li class="color-active"><a href="/product" class="deposer">Déposer une annonce</a></li>
                         </ul>
                     </div>
 
@@ -68,8 +68,11 @@
                                     <span class="caret"></span>
                                 </button>
                                 <ul class="dropdown-menu">
-                                    <li><a href="/account">Mon compte</a></li>
+                                    <li><a href="/account" class="compte">Mon compte</a></li>
                                     <li><a href="/logout">Déconnexion</a></li>
+                                    {% if user.is_admin == 1 %}
+                                    <li><a href="/stats">Statistiques</a></li>
+                                    {% endif %}
                                 </ul>
                             </div>
                         </div>
@@ -113,19 +116,29 @@
                         <p>Accueil</p>
                     </a>
                 </li>
+                {% if user is not null %}
                 <li>
                     <a href="/account">
                         <i class="cv cvicon-cv-play-circle"></i>
                         <p>Mon compte</p>
                     </a>
                 </li>
-
+                {% endif %}
+                {% if user.is_admin == 1 %}
+                <li>
+                    <a href="/stats">
+                        <i class="cv cvicon-cv-view-stats"></i>
+                        <p>Statistiques</p>
+                    </a>
+                </li>
+                {% endif %}
             </ul>
         </div>
         {% if user is not null %}
         <a href="/logout" class="btn mobile-menu-logout">Déconnexion</a>
         {% else %}
-        <a href="/register" class="btn mobile-menu-login">Connexion</a>
+        <a href="/login" class="btn mobile-menu-login">Connexion</a>
+        <a href="/register" class="btn mobile-menu-login">Inscription</a>
         {%endif %}
 
     </div>
@@ -149,11 +162,10 @@
                             <ul class="list-inline">
                                 <li><a href="/cookie">Politique relative aux cookies</a></li>
                                 <li><a href="/privacy">Politique de confidentialité</a></li>
-                                <li>Copyright 2024 <a href="https://www.cesi.fr" target="_blank" class="hidden-xs">CESI</a></li>
+                                <li>Copyright 2024 <a href="https://fr.wikipedia.org/wiki/Années_2000" target="_blank" class="hidden-xs">Team 2000</a></li>
                             </ul>
                         </div>
                     </div>
-
                 </div>
         </div>
     </footer>

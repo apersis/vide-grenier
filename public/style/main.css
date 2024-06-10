@@ -188,6 +188,66 @@ a.active {
   background-color: #ffffff;
 }
 
+.TextStatLine {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 5%;
+}
+
+.TextStat {
+  width: 25%;
+  padding: 10px;
+  border: 1px solid black;
+  font-size: 15px;
+  overflow: hidden;
+}
+
+.TextStatData {
+  font-weight: bold;
+  font-size: 20px;
+  margin-left: 10%;
+  margin-bottom: 0;
+}
+
+.Graphs {
+  height: 100%;
+  display: flex;
+}
+
+.GraphLineCase {
+  height: 400px;
+  width: 70%;
+}
+
+.GraphPieCase {
+  height: 400px;
+}
+
+@media screen and (max-width: 900px) {
+  .Graphs {
+    justify-content: centerS;
+    display: block;
+  }
+  .GraphLineCase {
+    margin-bottom: 5%;
+    width: 100%;
+  }
+}
+@media screen and (max-width: 600px) {
+  .TextStatLine {
+    display: block;
+    margin-bottom: 5%;
+    align-items: center;
+  }
+  .TextStat {
+    width: 50%;
+    padding: 10px;
+    border: 1px solid black;
+    font-size: 15px;
+    overflow: hidden;
+    margin: 5%;
+  }
+}
 /*
 * General Styles END
 */
@@ -1935,6 +1995,7 @@ ul.menu ul li:not(:last-child) {
 .mobile-menu-login {
   margin-top: 20px;
   background-color: #ea2c5a;
+  color: white;
 }
 
 /*
