@@ -34,12 +34,29 @@ class Articles extends Model {
             case '':
                 break;
         }
-
         $stmt = $db->query($query);
-
+        
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
+    public static function getAround($longitude, $latitude){
+        $db = static::getDB();
+        $stmt = $db->prepare( ' SELECT articles.*, articles.id as id, villes_france.ville_latitude_deg, villes_france.ville_longitude_deg, villes_france.ville_nom_reel,
+                        (6371 * acos(cos(radians(:latitude)) * cos(radians(villes_france.ville_latitude_deg)) * cos(radians(villes_france.ville_longitude_deg) - radians(:longitude)) + sin(radians(:latitude)) * sin(radians(villes_france.ville_latitude_deg)))) AS distance
+                    FROM articles
+                    INNER JOIN villes_france ON articles.fk_ville = villes_france.ville_id
+                    WHERE articles.is_actif = 1
+                    ORDER BY distance');
+
+            $stmt->bindParam(':longitude', $longitude);
+            $stmt->bindParam(':latitude', $latitude);
+
+            $stmt->execute();
+
+            return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    
     /**
      * ?
      * @access public
@@ -164,6 +181,60 @@ class Articles extends Model {
         $stmt->execute();
     }
 
+    
+    public static function getNumberByMounth()
+    {
+        $db = static::getDB();
+
+        $stmt = $db->prepare("
+        SELECT 
+            DATE_FORMAT(published_date, '%Y-%m') AS month,
+            COUNT(*) AS article_count
+        FROM 
+            articles
+        GROUP BY 
+            month
+        ORDER BY 
+            month;
+        ");
+
+        $stmt->execute();
+
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    public static function getNumberByActif()
+    {
+        $db = static::getDB();
+
+        $stmt = $db->prepare("
+        SELECT 
+            is_actif,
+            COUNT(*) AS article_count
+        FROM 
+            articles
+        GROUP BY 
+            is_actif
+        ORDER BY
+            is_actif;
+        ");
+
+        $stmt->execute();
+
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    public static function getBestArticle()
+    {
+        $db = static::getDB();
+
+        $stmt = $db->prepare("
+        SELECT name FROM articles ORDER BY views desc LIMIT 1;
+        ");
+        $stmt->execute();
+
+        return $stmt->fetch(\PDO::FETCH_ASSOC);
+    }
 
 
 
