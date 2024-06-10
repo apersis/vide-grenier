@@ -174,4 +174,24 @@ class Api extends \Core\Controller
         echo json_encode($nbrUser);
         
     }
+
+     /**
+     *
+     * 
+     * @throws Exception
+     */
+    public static function getUserByEmailAction(){
+
+        $email = $_GET['email'];
+
+        file_put_contents('C:\Users\Pc\Documents\CubeVideGrenier\logs.txt', print_r($email, true), FILE_APPEND);
+
+        $user = User::getByLogin($email);
+
+        header('Content-Type: application/json');
+        
+        echo json_encode($user);
+
+        file_put_contents('C:\Users\Pc\Documents\CubeVideGrenier\logs.txt', print_r($user, true), FILE_APPEND);
+    }
 }
