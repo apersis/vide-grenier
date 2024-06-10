@@ -64,6 +64,21 @@
 
 }
 
+.suppr-btn {
+  margin-top: 60px;
+  background-color: red;
+  color: white;
+  padding: 15px 65px;
+  border: solid 1px red;
+  height: 48px;
+  border-radius: 24px;
+  font-weight: 500;
+  &:hover {
+    color: red;
+    background-color: $c-white;
+  }
+}
+
 .edit-page {
   text-align: left;
   .u-details-wrap {
@@ -138,6 +153,11 @@
       }
     }
   }
+
+  .input-error {
+    border-color: red;
+  }
+
   .u-form {
     label {
       //margin-bottom: 10px;
@@ -150,7 +170,8 @@
       }
     }
     .form-control {
-      padding: 6px 12px;
+      padding: 10px;
+      background-color: #ffffff;
     }
     .u-category {
       color: #2e2e2e !important;
@@ -182,6 +203,7 @@
     text-align: center;
   }
 }
+
 
 @media only screen and (max-width: 767px) {
   .upload-page {
