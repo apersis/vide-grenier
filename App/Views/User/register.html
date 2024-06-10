@@ -25,30 +25,30 @@
                         <div class="form-group">
                             <label for="username">Nom d'utilisateur</label>
                             <input type="text" class="form-control" id="username" name="username"
-                                   placeholder="John Doe" >
+                                   placeholder="John Doe" required>
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1">Email</label>
                             <input type="email" class="form-control" id="exampleInputEmail1" name="email"
-                                   placeholder="exemple@gmail.com">
+                                   placeholder="exemple@gmail.com" required>
                         </div>
                         <div class="form-group">
                             <label for="exampleInputCP1">Code Postal</label>
-                            <input type="text" id="codepostalregister" class="form-control cityAutoComplete" placeholder="29200">
+                            <input type="text" id="codepostalregister" class="form-control cityAutoComplete" placeholder="29200" required>
                         </div>
                         <div class="form-group">
                             <label for="exampleInputVille1">Ville</label>
-                            <select name="fk_ville" id="villeInput" class="form-control" style="padding: 10px;padding-left: 15px; line-height: normal;"></select>
+                            <select name="fk_ville" id="villeInput" class="form-control" style="padding: 10px;padding-left: 15px; line-height: normal;" required></select>
                         </div>
                         <div class="form-group">
                             <label for="exampleInputPassword1">Mot de passe</label>
                             <input type="password" class="form-control" id="exampleInputPassword1"
-                                   placeholder="**********" name="password">
+                                   placeholder="**********" name="password" required>
                         </div>
                         <div class="form-group">
                             <label for="exampleInputPassword2">Votre mot de passe à nouveau</label>
                             <input type="password" class="form-control" id="exampleInputPassword2"
-                                   placeholder="**********" name="password-check">
+                                   placeholder="**********" name="password-check" required>
                         </div>
                         <div class="row">
                             <div class="col-lg-7"><button type="submit" name="submit" class="btn btn-cv1">Valider
@@ -76,6 +76,7 @@
     function validateForm(event) {
         var password = document.forms["registerForm"]["password"].value;
         var passwordCheck = document.forms["registerForm"]["password-check"].value;
+        var email = document.forms["registerForm"]["email"].value;
 
         if (password !== passwordCheck) {
             event.preventDefault();
@@ -84,6 +85,7 @@
             document.forms["registerForm"]["password-check"].value = "";
 
         }
+
     }
     
     // Sélection de l'élément <select>
